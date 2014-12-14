@@ -65,6 +65,14 @@ class Test_Should(object):
         should([1,2,3]).contain(1)
         should(set([1,2,3])).contain(3)
 
+    def test_length(self):
+        should([]).have.length(0)
+        should([1] * 10).have.length(10)
+        should('abc').have.length(3)
+        should('abcdefg').have.length(7)
+        should({}).have.length(0)
+        should({'k1': 'v1', 'k2': 'v2'}).have.length(2)
+
 
     def test_raises(self):
         with should.raises(IndexError):

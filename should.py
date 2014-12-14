@@ -3,7 +3,7 @@
 from functools import partial
 from contextlib import contextmanager
 
-_just_chains = ['an', 'of', 'a', 'be', 'which', 'also', 'as']
+_just_chains = ['have', 'an', 'of', 'a', 'be', 'which', 'also', 'as']
 
 _not_chains = ['no']
 
@@ -15,7 +15,8 @@ _assertions = {
         'less': lambda exp, actual: actual < exp,
         'greater': lambda exp, actual: actual > exp,
         'startswith': lambda exp, actual: actual.startswith(exp),
-        'endswith': lambda exp, actual: actual.endswith(exp)
+        'endswith': lambda exp, actual: actual.endswith(exp),
+        'length': lambda exp, actual: len(actual) == exp
         }
 
 
