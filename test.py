@@ -38,6 +38,14 @@ class Test_Should(object):
                 return self.val != other.val
         should(A(1)).be.equal(A(3))
 
+    def test_startswith(self):
+        should('abcdefg').be.startswith('abc')
+        should('abc').be.no.startswith('.git')
+
+    def test_endswith(self):
+        should('abcdefg').be.endswith('efg')
+        should('abc').be.no.endswith('.git')
+
     def test_no(self):
         should(0).be.no.equal(5)
         should(0).be.no.dict

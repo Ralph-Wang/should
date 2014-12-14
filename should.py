@@ -13,7 +13,9 @@ _assertions = {
         'contain': lambda exp, actual: exp in actual,
         'equal': lambda exp, actual: actual == exp,
         'less': lambda exp, actual: actual < exp,
-        'greater': lambda exp, actual: actual > exp
+        'greater': lambda exp, actual: actual > exp,
+        'startswith': lambda exp, actual: actual.startswith(exp),
+        'endswith': lambda exp, actual: actual.endswith(exp)
         }
 
 

@@ -1,6 +1,6 @@
 # should
 
-![travis](https://img.shields.io/travis/Ralph-Wang/should.svg?style=flat-square)
+[![travis](https://img.shields.io/travis/Ralph-Wang/should.svg?style=flat-square)](https://travis-ci.org/Ralph-Wang/should)
 
 
 ```
