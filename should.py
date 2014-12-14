@@ -9,6 +9,13 @@ _not_chains = ['no']
 
 _basic_types = [bool, int, str, list, tuple, dict]
 
+_assertions = {
+        'contain': lambda exp, actual: exp in actual,
+        'equal': lambda exp, actual: actual == exp,
+        'less': lambda exp, actual: actual < exp,
+        'greater': lambda exp, actual: actual > exp
+        }
+
 
 class _Should(object):
 
@@ -20,9 +27,15 @@ class _Should(object):
         self._set_property(_just_chains, self._chain)
         self._set_property(_not_chains, self._set_not)
 
+        # 初始化断言
         for t in _basic_types:
             p = property(fget=partial(self._types, t))
             setattr(self.__class__, t.__name__, p)
+
+        for assertion in _assertions:
+            p = partial(self._assertions, assertion)
+            setattr(self, assertion, p)
+
 
     @staticmethod
     @contextmanager
@@ -53,7 +66,7 @@ class _Should(object):
 
     @property
     def _flag(self):
-        return not self._not and 'not ' or ''
+        return 'not ' if self._not else ''
 
     def _assert(self, res, msg):
         ''' 统一的 assert 方法, 每次断言之后取消取否 '''
@@ -65,24 +78,13 @@ class _Should(object):
         self._assert(res, msg)
         return self
 
-    def equal(self, value):
-        res, msg = self._equal(value, self._val)
-        self._assert(res, msg)
+    def _assertions(self, assertion, exp):
+        res = _assertions[assertion](exp, self._val)
+        msg = '{0} should {1}{2} {3}'.format
+        if self._not:
+            res = not res
+        self._assert(res, msg(self._val, self._flag, assertion, exp))
         return self
-
-    def less(self, value):
-        res, msg = self._less(value, self._val)
-        self._assert(res, msg)
-        return self
-
-    def greater(self, value):
-        res, msg = self._greater(value, self._val)
-        self._assert(res, msg)
-        return self
-
-    def contain(self, value):
-        res, msg = self._contain(value, self._val)
-        self._assert(res, msg)
 
     @property
     def ok(self):
@@ -100,26 +102,6 @@ class _Should(object):
         res = not bool(actual) if self._not else bool(actual)
         msg = '{0}\'s bool value is {1}True'.format
         return res, msg(actual, self._flag)
-
-    def _equal(self, exp, actual):
-        res = (actual != exp) if self._not else (actual == exp)
-        msg = '{0} is {1}equal {2}'.format
-        return res, msg(actual, self._flag, exp)
-
-    def _less(self, exp, actual):
-        res = (actual >= exp) if self._not else (actual < exp)
-        msg = '{0} is {1}less than {2}'.format
-        return res, msg(actual, self._flag, exp)
-
-    def _greater(self, exp, actual):
-        res = (actual <= exp) if self._not else (actual > exp)
-        msg = '{0} is {1}greater than {2}'.format
-        return res, msg(actual, self._flag, exp)
-
-    def _contain(self, exp, actual):
-        res = (exp not in actual) if self._not else (exp in actual)
-        msg = '{0} is {1}contain {2}'.format
-        return res, msg(actual, self._flag, exp)
 
 
 should = _Should
