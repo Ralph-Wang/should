@@ -5,8 +5,6 @@ version = '0.3.1'
 setup(name='should',
       version=version,
       description="assert with should",
-      long_description="""\
-""",
       keywords='assert,should,test,BDD',
       author='Ralph-Wang',
       author_email='ralph.wang1024@gmail.com',

@@ -38,8 +38,13 @@ pip install should
 ```python
 from should import should
 
+# 一般的断言
 should(1).be.int
 should({}).be.no.ok
+
+# 异常断言
+with should.raises(ValueError):
+    int('abc')
 ```
 
 ## 不足:
