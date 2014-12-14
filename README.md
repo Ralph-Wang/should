@@ -2,6 +2,8 @@
 
 [![travis](https://img.shields.io/travis/Ralph-Wang/should.svg?style=flat-square)](https://travis-ci.org/Ralph-Wang/should)
 
+![pypi-downloads](https://img.shields.io/pypi/dm/should.svg?style=flat-square)
+
 
 ```
 所谓断言: tj 之前无 should, tj 之后全 should
@@ -54,7 +56,7 @@ with should.raises(ValueError):
 
 * Python 中逻辑词 `and`,`not`,`with` 是保留字, 可以作为属性名称存在,
   但直接用点号(.)调用解释器会报语法错误... 所以取反属性用 `no`. 连结词就用
-  'also' 和 'as' 代替了.
+  `also` 和 `as` 代替了.
 
 ## License
 
