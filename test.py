@@ -55,7 +55,7 @@ class Test_Should(object):
 
     def test_contain(self):
         should([1,2,3]).contain(1)
-        should(set([1,2,3])).contain(1)
+        should(set([1,2,3])).contain(3)
 
 
     def test_raises(self):
@@ -72,3 +72,13 @@ class Test_Should(object):
         except AssertionError:
             pass
 
+    def test_msg(self):
+        try:
+            should(1).be.equal(2)
+        except AssertionError, e:
+            assert 'not' not in str(e)
+
+        try:
+            should(1).be.no.equal(1)
+        except AssertionError, e:
+            assert 'not' in str(e)
