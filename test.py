@@ -91,10 +91,10 @@ class Test_Should(object):
     def test_msg(self):
         try:
             should(1).be.equal(2)
-        except AssertionError, e:
+        except AssertionError as e:
             assert 'not' not in str(e)
 
         try:
             should(1).be.no.equal(1)
-        except AssertionError, e:
+        except AssertionError as e:
             assert 'not' in str(e)
