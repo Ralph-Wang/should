@@ -3,7 +3,7 @@
 from functools import partial
 from contextlib import contextmanager
 
-_just_chains = ['have', 'an', 'of', 'a', 'be', 'which', 'also', 'as']
+_just_chains = ['should', 'have', 'an', 'of', 'a', 'be', 'which', 'also', 'as']
 
 _not_chains = ['no']
 
@@ -129,3 +129,4 @@ class _Should(object):
 
 
 should = _Should
+it = _Should

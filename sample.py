@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from should import should
+from should import it
 
 
 class RangeError(Exception):
@@ -18,9 +19,9 @@ def fib(n):
         pre, cur = cur, pre+cur
     return cur
 
-should(fib(0)).be.equal(0)
-should(fib(1)).be.equal(1)
-should(fib(10)).be.equal(55)
+it(fib(0)).should.be.equal(0)
+it(fib(1)).should.be.equal(1)
+it(fib(10)).should.be.equal(55)
 
 with should.raises(RangeError):
     fib(-1)
