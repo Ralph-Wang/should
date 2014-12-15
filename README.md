@@ -1,7 +1,6 @@
 # should
 
 [![travis](https://img.shields.io/travis/Ralph-Wang/should.svg?style=flat-square)](https://travis-ci.org/Ralph-Wang/should)
-
 ![pypi-downloads](https://img.shields.io/pypi/dm/should.svg?style=flat-square)
 
 
