@@ -13,6 +13,14 @@ class Test_Should(object):
         should(()).be.tuple
         should({}).be.dict
 
+    def test_uniq_values(self):
+        should(None).be.None
+        should(True).be.True
+        should(False).be.False
+        should(1).be.no.None
+        should(1).be.no.True
+        should(1).be.no.False
+
     def test_ok(self):
         should(1).be.ok
         should([1]).be.ok
@@ -95,9 +103,9 @@ class Test_Should(object):
         try:
             should(1).be.equal(2)
         except AssertionError as e:
-            assert 'not' not in str(e)
+            assert 'not' in str(e)
 
         try:
             should(1).be.no.equal(1)
         except AssertionError as e:
-            assert 'not' in str(e)
+            assert 'not' not in str(e)

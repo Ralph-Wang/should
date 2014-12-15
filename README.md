@@ -16,6 +16,7 @@ Python 版本的 [should](https://github.com/shouldjs/should.js) 断言库
 ## TODO
 
 * 原 should 的其它接口
+* keys 取反的逻辑需要重新考虑
 
 
 ### 既然有了 pyshould, 为什么要重新造轮子?

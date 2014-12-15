@@ -9,6 +9,12 @@ _not_chains = ['no']
 
 _basic_types = [bool, int, str, list, tuple, dict]
 
+_basic_values = {
+        'True': True,
+        'False': False,
+        'None': None
+        }
+
 _assertions = {
         'contain': lambda exp, actual: exp in actual,
         'equal': lambda exp, actual: actual == exp,
@@ -32,6 +38,10 @@ class _Should(object):
         self._set_property(_not_chains, self._set_not)
 
         # 初始化断言
+        for v in _basic_values:
+            p = property(fget=partial(self._values, _basic_values[v]))
+            setattr(self.__class__, v, p)
+
         for t in _basic_types:
             p = property(fget=partial(self._types, t))
             setattr(self.__class__, t.__name__, p)
@@ -70,12 +80,17 @@ class _Should(object):
 
     @property
     def _flag(self):
-        return 'not ' if self._not else ''
+        return '' if self._not else 'not '
 
     def _assert(self, res, msg):
         ''' 统一的 assert 方法, 每次断言之后取消取否 '''
         assert res, msg
         self._not = False
+
+    def _values(self, value, cls):
+        res, msg = self.__values(value, self._val)
+        self._assert(res, msg)
+        return self
 
     def _types(self, ttype, cls):
         res, msg = self.__types(ttype, self._val)
@@ -95,6 +110,11 @@ class _Should(object):
         res, msg = self._ok(self._val)
         self._assert(res, msg)
         return self
+
+    def __values(self, exp, actual):
+        res = (actual is not exp) if self._not else (actual is exp)
+        msg = '{0} is {1}{2}'.format
+        return res, msg(actual, self._flag, exp)
 
     def __types(self, exp, value):
         actual = type(value)
