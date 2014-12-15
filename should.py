@@ -10,9 +10,9 @@ _not_chains = ['no']
 _basic_types = [bool, int, str, list, tuple, dict]
 
 _basic_values = {
-        'True': True,
-        'False': False,
-        'None': None
+        'true': True,
+        'false': False,
+        'none': None
         }
 
 _assertions = {

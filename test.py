@@ -14,12 +14,12 @@ class Test_Should(object):
         should({}).be.dict
 
     def test_uniq_values(self):
-        should(None).be.None
-        should(True).be.True
-        should(False).be.False
-        should(1).be.no.None
-        should(1).be.no.True
-        should(1).be.no.False
+        should(None).be.none
+        should(True).be.true
+        should(False).be.false
+        should(1).be.no.none
+        should(1).be.no.true
+        should(1).be.no.false
 
     def test_ok(self):
         should(1).be.ok
