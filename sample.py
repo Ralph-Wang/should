@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from should import should
 from should import it
 
 
@@ -23,11 +22,8 @@ it(fib(0)).should.be.equal(0)
 it(fib(1)).should.be.equal(1)
 it(fib(10)).should.be.equal(55)
 
-with should.raises(RangeError):
-    fib(-1)
 
-with should.raises(RangeError):
-    fib(41)
+it(lambda: fib(-1)).should.throw(RangeError)
+it(lambda: fib(41)).should.throw(RangeError)
+it(lambda: fib('string')).should.throw(ValueError)
 
-with should.raises(ValueError):
-    fib('string')
