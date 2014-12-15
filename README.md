@@ -40,26 +40,32 @@ pip install should
 
 ## 使用方法:
 
+
 ```python
-from should import should
+from should import it
 
 # 一般的断言
-should(1).be.int
-should({}).be.no.ok
+it(1).should.be.int
+it({}).should.be.no.ok
+it(2).should.be.equal(2)
+it(10).should.be.no.equal(8)
+it([1,2,3]).should.contain(3)
 
-# with 版异常断言, 算是个历史错误吧..., 不支持 no
+# with 版异常断言, 不支持 no, 在 0.5 版本会被删除
 with should.raises(ValueError):
     int('abc')
 
 # lambda 版异常断言
-should(lambda: int('abc')).throw(ValueError)
-should(lambda: int('123')).no.throw(ValueError)
+it(lambda: int('abc')).should.throw(ValueError)
+it(lambda: int('123')).should.no.throw(ValueError)
 ```
+
+* 更多例子请参考 [test.py](https://github.com/Ralph-Wang/should/test.py)
 
 ## 不足:
 
 * 因为 Python 语言特性, 不能对 type 或 object 进行 mixin.
-  所以只能使用静态调用的方式
+  所以只能使用静态调用的方式. 最前面用 `it` 调用句子通一点了
 
 * Python 中逻辑词 `and`,`not`,`with` 是保留字, 可以作为属性名称存在,
   但直接用点号(.)调用解释器会报语法错误... 所以取反属性用 `no`. 连结词就用

@@ -68,7 +68,7 @@ class _Should(object):
     @contextmanager
     def raises(exception):
         '''
-        异常的断言
+        异常的断言, 会在 0.5 废弃
         @param {Exception} exception 需要抛出的异常
         '''
         try:
