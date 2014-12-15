@@ -5,6 +5,9 @@ version = '0.3.2'
 setup(name='should',
       version=version,
       description="assert with should",
+      long_description="""
+      不太会 RST, 详情及源码见 https://github.com/Ralph-Wang/should
+      """,
       keywords='assert,should,test,BDD',
       author='Ralph-Wang',
       author_email='ralph.wang1024@gmail.com',
