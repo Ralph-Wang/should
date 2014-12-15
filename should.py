@@ -16,7 +16,8 @@ _assertions = {
         'greater': lambda exp, actual: actual > exp,
         'startswith': lambda exp, actual: actual.startswith(exp),
         'endswith': lambda exp, actual: actual.endswith(exp),
-        'length': lambda exp, actual: len(actual) == exp
+        'length': lambda exp, actual: len(actual) == exp,
+        'key': lambda exp, actual: exp in actual.keys()
         }
 
 

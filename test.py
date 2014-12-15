@@ -73,6 +73,9 @@ class Test_Should(object):
         should({}).have.length(0)
         should({'k1': 'v1', 'k2': 'v2'}).have.length(2)
 
+    def test_key(self):
+        should({'l1': 'v1'}).have.key('l1')
+        should({'l1': 'v1'}).have.no.key('l2')
 
     def test_raises(self):
         with should.raises(IndexError):
