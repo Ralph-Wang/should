@@ -16,6 +16,7 @@ Python 版本的 [should](https://github.com/shouldjs/should.js) 断言库
 
 * 原 should 的其它接口
 * keys 取反的逻辑需要重新考虑
+* 详尽一点的文档
 
 
 ### 既然有了 pyshould, 为什么要重新造轮子?
@@ -26,8 +27,10 @@ Python 版本的 [should](https://github.com/shouldjs/should.js) 断言库
 * 不适应 pyshould 中重载运算符的做法
 
 ### 借鉴的地方?
-因为 Python 里的匿名函数没有 JavaScript 中那样强大, 对于 `throw`
-的测试没有采用原 should 的方式, 而选择用 pyshould 中 with 的方式
+~因为 Python 里的匿名函数没有 JavaScript 中那样强大, 对于 `throw`~
+~的测试没有采用原 should 的方式, 而选择用 pyshould 中 with 的方式~
+
+* 借鉴个毛啊, 虽然 Python 的匿名函数不那么强大, 但应付 raise 完全足够了
 
 ## 安装:
 
@@ -44,9 +47,13 @@ from should import should
 should(1).be.int
 should({}).be.no.ok
 
-# 异常断言
+# with 版异常断言, 算是个历史错误吧..., 不支持 no
 with should.raises(ValueError):
     int('abc')
+
+# lambda 版异常断言
+should(lambda: int('abc')).throw(ValueError)
+should(lambda: int('123')).no.throw(ValueError)
 ```
 
 ## 不足:

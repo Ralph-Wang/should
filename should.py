@@ -2,6 +2,7 @@
 
 from functools import partial
 from contextlib import contextmanager
+import sys
 
 _just_chains = ['should', 'have', 'an', 'of', 'a', 'be', 'which', 'also', 'as']
 
@@ -50,6 +51,18 @@ class _Should(object):
             p = partial(self._assertions, assertion)
             setattr(self, assertion, p)
 
+    def throw(self, exception):
+        msg = ('should {0}raise ' + exception.__name__).format
+        try:
+            self._val()
+        except exception:
+            res = True
+        else:
+            res = False
+        if self._not:
+            res = not res
+        self._assert(res, msg(self._flag))
+        return self
 
     @staticmethod
     @contextmanager
@@ -60,6 +73,7 @@ class _Should(object):
         '''
         try:
             yield
+            sys.stderr.write('raises will be deprecated in 0.5, use throw please.\n')
         except exception:
             pass
         else:

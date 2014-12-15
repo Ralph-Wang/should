@@ -99,6 +99,10 @@ class Test_Should(object):
         except AssertionError:
             pass
 
+    def test_throw(self):
+        should(lambda: int('abc')).throw(ValueError)
+        should(lambda: int('123')).no.throw(ValueError)
+
     def test_msg(self):
         try:
             should(1).be.equal(2)
