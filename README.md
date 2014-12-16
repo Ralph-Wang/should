@@ -60,7 +60,7 @@ it(lambda: int('abc')).should.throw(ValueError)
 it(lambda: int('123')).should.no.throw(ValueError)
 ```
 
-* 更多例子请参考 [test.py](https://github.com/Ralph-Wang/should/test.py)
+* 更多例子请参考 [test.py](https://github.com/Ralph-Wang/should/blob/master/test.py)
 
 ## 不足:
 
