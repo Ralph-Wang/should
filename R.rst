@@ -1,10 +1,12 @@
 should
 ==========
 
-travis:: https://img.shields.io/travis/Ralph-Wang/should.svg?style=flat-square : https://travis-ci.org/Ralph-Wang/should
-Coverage:: https://img.shields.io/coveralls/Ralph-Wang/should.svg?style=flat-square : https://coveralls.io/r/Ralph-Wang/should
-pypi-version:: https://img.shields.io/pypi/v/should.svg?style=flat-square
-pypi-downloads:: https://img.shields.io/pypi/dm/should.svg?style=flat-square
+.. travis-badge:: https://img.shields.io/travis/Ralph-Wang/should.svg?style=flat-square
+    :https://travis-ci.org/Ralph-Wang/should
+.. Coverage:: https://img.shields.io/coveralls/Ralph-Wang/should.svg?style=flat-square
+    :cover: https://coveralls.io/r/Ralph-Wang/should
+.. pypi-version:: https://img.shields.io/pypi/v/should.svg?style=flat-square
+.. pypi-downloads:: https://img.shields.io/pypi/dm/should.svg?style=flat-square
 
 
 ::
@@ -14,7 +16,7 @@ pypi-downloads:: https://img.shields.io/pypi/dm/should.svg?style=flat-square
 安装:
 ====
 
-::
+Install::
     pip install should
 
 
@@ -22,7 +24,7 @@ pypi-downloads:: https://img.shields.io/pypi/dm/should.svg?style=flat-square
 ====
 
 
-::
+Usage Sample::
     from should import it
 
     # 一般的断言
@@ -40,7 +42,8 @@ pypi-downloads:: https://img.shields.io/pypi/dm/should.svg?style=flat-square
     it(lambda: int('abc')).should.throw(ValueError)
     it(lambda: int('123')).should.no.throw(ValueError)
 
-- 更多例子请参考 [test.py](https://github.com/Ralph-Wang/should/blob/master/test.py)
+- 更多例子请参考
+.. test.py:https://github.com/Ralph-Wang/should/blob/master/test.py
 
 
 License
