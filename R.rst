@@ -1,12 +1,10 @@
 should
-==========
+----------------
 
-.. image:: https://img.shields.io/travis/Ralph-Wang/should.svg?style=flat-square
+.. image:: https://img.shields.io/travis/Ralph-Wang/should.svg?style-flat-square
     :target: https://travis-ci.org/Ralph-Wang/should
-.. image:: https://img.shields.io/coveralls/Ralph-Wang/should.svg?style=flat-square
+.. image:: https://img.shields.io/coveralls/Ralph-Wang/should.svg?style-flat-square
     :target: https://coveralls.io/r/Ralph-Wang/should
-.. image:: https://img.shields.io/pypi/v/should.svg?style=flat-square
-.. image:: https://img.shields.io/pypi/dm/should.svg?style=flat-square
 
 
 ::
@@ -15,7 +13,7 @@ should
 
 
 安装:
-====
+----------------
 
 ::
 
@@ -23,7 +21,7 @@ should
 
 
 使用方法:
-====
+----------------
 
 
 ::
@@ -52,6 +50,6 @@ should
 
 
 License
-====
+----------------
 
 The MIT License
