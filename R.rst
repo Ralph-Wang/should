@@ -10,6 +10,7 @@ should
 
 
 ::
+
     所谓断言: tj 之前无 should, tj 之后全 should
 
 
@@ -45,8 +46,9 @@ should
     it(lambda: int('123')).should.no.throw(ValueError)
 
     
-- 更多例子请参考
-.. test.py:https://github.com/Ralph-Wang/should/blob/master/test.py
+- 更多例子请参考 test.py_
+
+.. _test.py: https://github.com/Ralph-Wang/should/blob/master/test.py
 
 
 License

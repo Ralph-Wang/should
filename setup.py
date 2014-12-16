@@ -2,20 +2,12 @@
 
 from setuptools import setup, find_packages
 
-version = '0.4.1'
+version = '0.4.2'
 
 setup(name='should',
       version=version,
       description="assert with should",
-      long_description="""
-      不太会 RST, 详情及源码见 https://github.com/Ralph-Wang/should
-
-      from should import it
-
-      it(1).should.be.int.also.be.equal(1)
-
-      it(lambda: int('abc')).should.throw(ValueError)
-      """,
+      long_description=open('R.rst').read(),
       keywords='assert,should,test,BDD',
       author='Ralph-Wang',
       author_email='ralph.wang1024@gmail.com',
