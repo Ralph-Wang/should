@@ -8,7 +8,13 @@ _just_chains = ['should', 'have', 'an', 'of', 'a', 'be', 'which', 'also']
 
 _not_chains = ['no']
 
-_basic_types = [bool, int, str, list, tuple, dict]
+_basic_types = [bool, int, long, float, str, list, tuple, dict]
+
+try:
+    # Python 2.* 有 unicode, 3.* 没有
+    _basic_types.append(unicode)
+except NameError:
+    pass
 
 _basic_values = {
         'true': True,
