@@ -8,11 +8,12 @@ _just_chains = ['should', 'have', 'an', 'of', 'a', 'be', 'which', 'also']
 
 _not_chains = ['no']
 
-_basic_types = [bool, int, long, float, str, list, tuple, dict]
+_basic_types = [bool, int, float, str, list, tuple, dict]
 
 try:
-    # Python 2.* 有 unicode, 3.* 没有
+    # Python 2.* 有 unicode, long, 3.* 没有
     _basic_types.append(unicode)
+    _basic_types.append(long)
 except NameError:
     pass
 
