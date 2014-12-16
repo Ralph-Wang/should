@@ -69,7 +69,7 @@ it(lambda: int('123')).should.no.throw(ValueError)
 
 * Python 中逻辑词 `and`,`not`,`with` 是保留字, 可以作为属性名称存在,
   但直接用点号(.)调用解释器会报语法错误... 所以取反属性用 `no`. 连结词就用
-  `also` 和 `as` 代替了.
+  `also` 代替了.
 
 ## License
 

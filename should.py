@@ -4,7 +4,7 @@ from functools import partial
 from contextlib import contextmanager
 import sys
 
-_just_chains = ['should', 'have', 'an', 'of', 'a', 'be', 'which', 'also', 'as']
+_just_chains = ['should', 'have', 'an', 'of', 'a', 'be', 'which', 'also']
 
 _not_chains = ['no']
 
