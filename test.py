@@ -107,9 +107,9 @@ class Test_it(object):
         try:
             it(1).be.equal(2)
         except AssertionError as e:
-            assert 'not' in str(e)
+            assert 'not' not in str(e)
 
         try:
             it(1).be.no.equal(1)
         except AssertionError as e:
-            assert 'not' not in str(e)
+            assert 'not' in str(e)
