@@ -1,0 +1,10 @@
+Change Log
+-------
+
+
+v0.4.3
+------
+
+* 类型断言如 `it(1).should.be.int` 支持所有内建类型
+* 添加 `instanceof` 断言, 支持其它类型或弱类型断言
+* 链式调用 'be'/'have' 时, Error 信息正确显示 have 和 be

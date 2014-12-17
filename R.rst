@@ -6,12 +6,6 @@ should
 .. image:: https://img.shields.io/coveralls/Ralph-Wang/should.svg?style-flat-square
     :target: https://coveralls.io/r/Ralph-Wang/should
 
-
-::
-
-    所谓断言: tj 之前无 should, tj 之后全 should
-
-
 安装:
 ----------------
 
