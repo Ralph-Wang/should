@@ -4,38 +4,41 @@ from functools import partial
 from contextlib import contextmanager
 import sys
 
-_just_chains = ['should', 'have', 'an', 'of', 'a', 'be', 'also']
+_just_chains = {
+    'should': None, 'have': 'have', 'an': None, 'of': None,
+    'a': None, 'be': 'be', 'also': None
+}
 
-_not_chains = ['no']
+_not_chains = {'no': None}
 
 _basic_types = list(filter(lambda t: type(t) is type, __builtins__.values()))
 
 # which 有别的用处
 
 _basic_values = {
-        'true': True,
-        'false': False,
-        'none': None
-        }
+    'true': True,
+    'false': False,
+    'none': None
+}
 
 _assertions = {
-        'contain': lambda exp, actual: exp in actual,
-        'equal': lambda exp, actual: actual == exp,
-        'less': lambda exp, actual: actual < exp,
-        'greater': lambda exp, actual: actual > exp,
-        'startswith': lambda exp, actual: actual.startswith(exp),
-        'endswith': lambda exp, actual: actual.endswith(exp),
-        'length': lambda exp, actual: len(actual) == exp,
-        'key': lambda exp, actual: exp in actual.keys(),
-        'instanceof': lambda exp, actual: isinstance(actual, exp)
-        }
+    'contain': lambda exp, actual: exp in actual,
+    'equal': lambda exp, actual: actual == exp,
+    'less': lambda exp, actual: actual < exp,
+    'greater': lambda exp, actual: actual > exp,
+    'startswith': lambda exp, actual: actual.startswith(exp),
+    'endswith': lambda exp, actual: actual.endswith(exp),
+    'length': lambda exp, actual: len(actual) == exp,
+    'key': lambda exp, actual: exp in actual.keys(),
+    'instanceof': lambda exp, actual: isinstance(actual, exp)
+}
 
 
 class _Should(object):
 
-
     def __init__(self, val=None):
         self._val = val
+        self._conj = 'be'
         self._not = False  # `not` flag
 
         self._set_property(_just_chains, self._chain)
@@ -76,23 +79,26 @@ class _Should(object):
         '''
         try:
             yield
-            sys.stderr.write('raises will be deprecated in 0.5, use throw please.\n')
+            sys.stderr.write(
+                'raises will be deprecated in 0.5, use throw please.\n')
         except exception:
             pass
         else:
             assert False, 'should raise ' + exception.__name__
 
     @classmethod
-    def _set_property(cls, lst, fget, fset=None):
-        for name in lst:
-            p = property(fget=fget, fset=fset)
+    def _set_property(cls, dct, fget, fset=None):
+        for name, conj in dct.items():
+            p = property(fget=partial(fget, conj), fset=fset)
             setattr(cls, name, p)
 
-    def _set_not(self, cls):
+    def _set_not(self, conj=None, cls=None):
+        self._conj = 'be' if conj is None else conj
         self._not = True
         return self
 
-    def _chain(self, cls):
+    def _chain(self, conj='be', cls=None):
+        self._conj = 'be' if conj is None else conj
         return self
 
     @property
@@ -116,10 +122,11 @@ class _Should(object):
 
     def _assertions(self, assertion, exp):
         res = _assertions[assertion](exp, self._val)
-        msg = '{0} should {1}{2} {3}'.format
+        msg = '{0} should {1}{2} {3} {4}'.format
         if self._not:
             res = not res
-        self._assert(res, msg(self._val, self._flag, assertion, exp))
+        self._assert(
+            res, msg(self._val, self._flag, self._conj, assertion, exp))
         return self
 
     @property
