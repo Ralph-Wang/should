@@ -26,7 +26,8 @@ _assertions = {
         'startswith': lambda exp, actual: actual.startswith(exp),
         'endswith': lambda exp, actual: actual.endswith(exp),
         'length': lambda exp, actual: len(actual) == exp,
-        'key': lambda exp, actual: exp in actual.keys()
+        'key': lambda exp, actual: exp in actual.keys(),
+        'instanceof': lambda exp, actual: isinstance(actual, exp)
         }
 
 
@@ -129,13 +130,13 @@ class _Should(object):
 
     def __values(self, exp, actual):
         res = (actual is not exp) if self._not else (actual is exp)
-        msg = '{0} is {1}{2}'.format
+        msg = '{0} should be {1}{2}'.format
         return res, msg(actual, self._flag, exp)
 
     def __types(self, exp, value):
         actual = type(value)
         res = (actual is not exp) if self._not else (actual is exp)
-        msg = '{0} is {1}{2}'.format
+        msg = '{0} should be {1}{2}'.format
         return res, msg(value, self._flag, exp)
 
     def _ok(self, actual):

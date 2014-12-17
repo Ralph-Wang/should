@@ -85,6 +85,13 @@ class Test_it(object):
         it({'l1': 'v1'}).have.key('l1')
         it({'l1': 'v1'}).have.no.key('l2')
 
+    def test_instanceof(self):
+        it({'l1': 'v1'}).should.be.instanceof(dict)
+        it({'l1': 'v1'}).should.be.no.instanceof(int)
+        class A:
+            pass
+        it(A()).should.be.instanceof(A)
+
     def test_raises(self):
         with it.raises(IndexError):
             a = []
