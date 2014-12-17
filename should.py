@@ -8,7 +8,7 @@ _just_chains = ['should', 'have', 'an', 'of', 'a', 'be', 'also']
 
 _not_chains = ['no']
 
-_basic_types = filter(lambda t: type(t) is type, __builtins__.values())
+_basic_types = list(filter(lambda t: type(t) is type, __builtins__.values()))
 
 # which 有别的用处
 
