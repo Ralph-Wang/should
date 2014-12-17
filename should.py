@@ -4,18 +4,13 @@ from functools import partial
 from contextlib import contextmanager
 import sys
 
-_just_chains = ['should', 'have', 'an', 'of', 'a', 'be', 'which', 'also']
+_just_chains = ['should', 'have', 'an', 'of', 'a', 'be', 'also']
 
 _not_chains = ['no']
 
-_basic_types = [bool, int, float, str, list, tuple, dict]
+_basic_types = filter(lambda t: type(t) is type, __builtins__.values())
 
-try:
-    # Python 2.* 有 unicode, long, 3.* 没有
-    _basic_types.append(unicode)
-    _basic_types.append(long)
-except NameError:
-    pass
+# which 有别的用处
 
 _basic_values = {
         'true': True,
