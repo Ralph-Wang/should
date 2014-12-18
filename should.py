@@ -2,6 +2,7 @@
 
 from functools import partial
 from contextlib import contextmanager
+import re
 import sys
 
 _just_chains = {
@@ -30,7 +31,8 @@ _assertions = {
     'endswith': lambda exp, actual: actual.endswith(exp),
     'length': lambda exp, actual: len(actual) == exp,
     'key': lambda exp, actual: exp in actual.keys(),
-    'instanceof': lambda exp, actual: isinstance(actual, exp)
+    'instanceof': lambda exp, actual: isinstance(actual, exp),
+    'match': lambda exp, actual: re.match(exp, actual) is not None
 }
 
 
@@ -122,11 +124,11 @@ class _Should(object):
 
     def _assertions(self, assertion, exp):
         res = _assertions[assertion](exp, self._val)
-        msg = '{0} should {1}{2} {3} {4}'.format
+        msg_format = '{0} should {1}{2} {3} {4}'.format
         if self._not:
             res = not res
-        self._assert(
-            res, msg(self._val, self._flag, self._conj, assertion, exp))
+        msg = msg_format(self._val, self._flag, self._conj, assertion, exp)
+        self._assert(res, msg)
         return self
 
     @property
@@ -137,19 +139,19 @@ class _Should(object):
 
     def __values(self, exp, actual):
         res = (actual is not exp) if self._not else (actual is exp)
-        msg = '{0} should be {1}{2}'.format
-        return res, msg(actual, self._flag, exp)
+        msg_format = '{0} should be {1}{2}'.format
+        return res, msg_format(actual, self._flag, exp)
 
     def __types(self, exp, value):
         actual = type(value)
         res = (actual is not exp) if self._not else (actual is exp)
-        msg = '{0} should be {1}{2}'.format
-        return res, msg(value, self._flag, exp)
+        msg_format = '{0} should be {1}{2}'.format
+        return res, msg_format(value, self._flag, exp)
 
     def _ok(self, actual):
         res = not bool(actual) if self._not else bool(actual)
-        msg = '{0}\'s bool value is {1}True'.format
-        return res, msg(actual, self._flag)
+        msg_format = '{0}\'s bool value is {1}True'.format
+        return res, msg_format(actual, self._flag)
 
 
 should = _Should

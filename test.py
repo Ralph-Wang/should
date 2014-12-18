@@ -92,6 +92,11 @@ class Test_it(object):
             pass
         it(A()).should.be.instanceof(A)
 
+    def test_match(self):
+        it('abcdefg').should.match(r'.')
+        it('test@163.com').should.match(r'(\w|_)+@(\w|_)+?\.(\w|_)+')
+        it('aaa').should.no.match(r'bbb')
+
     def test_raises(self):
         with it.raises(IndexError):
             a = []
