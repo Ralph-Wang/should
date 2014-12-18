@@ -38,7 +38,7 @@ class _Should(object):
 
     def __init__(self, val=None):
         self._val = val
-        self._conj = 'be'
+        self._conj = ''
         self._not = False  # `not` flag
 
         self._set_property(_just_chains, self._chain)
@@ -93,12 +93,12 @@ class _Should(object):
             setattr(cls, name, p)
 
     def _set_not(self, conj=None, cls=None):
-        self._conj = 'be' if conj is None else conj
+        self._conj = self._conj if conj is None else conj
         self._not = True
         return self
 
     def _chain(self, conj='be', cls=None):
-        self._conj = 'be' if conj is None else conj
+        self._conj = self._conj if conj is None else conj
         return self
 
     @property
