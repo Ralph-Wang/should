@@ -60,11 +60,20 @@ class _Should(object):
             setattr(self, assertion, p)
 
     def throw(self, exception):
-        msg = ('should {0}raise ' + exception.__name__).format
+        if isinstance(exception, basestring):
+            exe_msg = exception
+            exception = Exception
+            msg = ('should {0}raise msg:' + exe_msg).format
+        else:
+            exe_msg = None
+            msg = ('should {0}raise ' + exception.__name__).format
+
         try:
             self._val()
-        except exception:
+        except exception as e:
             res = True
+            if exe_msg is not None:
+                res = exe_msg in str(e)
         else:
             res = False
         if self._not:

@@ -128,6 +128,14 @@ class Test_it(object):
         it(lambda: int('abc')).throw(ValueError)
         it(lambda: int('123')).no.throw(ValueError)
 
+    def test_throw_msg(self):
+        def foo():
+            raise ValueError("some msg")
+
+        it(foo).should.throw(ValueError).also.throw("some msg")
+
+        it(foo).should.no.throw("123")
+
     def test_msg(self):
         try:
             it(1).be.equal(2)
