@@ -92,10 +92,17 @@ class Test_it(object):
             pass
         it(A()).should.be.instanceof(A)
 
+    def test_search(self):
+        it('abcdefg').should.search(r'.')
+        it('test@163.com').should.search(r'(\w|_)+@(\w|_)+?\.(\w|_)+')
+        it('aaa').should.no.search(r'bbb')
+        it('abc\ndef').should.search(r'def')
+
     def test_match(self):
         it('abcdefg').should.match(r'.')
         it('test@163.com').should.match(r'(\w|_)+@(\w|_)+?\.(\w|_)+')
         it('aaa').should.no.match(r'bbb')
+        it('abc\ndef').should.match(r'def')
 
     def test_empty(self):
         it('').should.be.empty

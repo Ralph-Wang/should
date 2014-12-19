@@ -6,6 +6,8 @@ should
 .. image:: https://img.shields.io/coveralls/Ralph-Wang/should.svg?style-flat-square
     :target: https://coveralls.io/r/Ralph-Wang/should
 
+Bugs: https://github.com/Ralph-Wang/should/issues
+
 安装:
 ----------------
 

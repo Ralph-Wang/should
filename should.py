@@ -37,7 +37,8 @@ _assertions = {
     'length': lambda exp, actual: len(actual) == exp,
     'key': lambda exp, actual: exp in actual.keys(),
     'instanceof': lambda exp, actual: isinstance(actual, exp),
-    'match': lambda exp, actual: re.match(exp, actual) is not None
+    'match': lambda exp, actual: re.search(exp, actual) is not None,
+    'search': lambda exp, actual: re.search(exp, actual) is not None
 }
 
 
