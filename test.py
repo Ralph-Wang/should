@@ -97,6 +97,19 @@ class Test_it(object):
         it('test@163.com').should.match(r'(\w|_)+@(\w|_)+?\.(\w|_)+')
         it('aaa').should.no.match(r'bbb')
 
+    def test_empty(self):
+        it('').should.be.empty
+        it([]).should.be.empty
+        it(()).should.be.empty
+        it({}).should.be.empty
+        it(set()).should.be.empty
+
+        it('1').should.be.no.empty
+        it([1]).should.be.no.empty
+        it((1,)).should.be.no.empty
+        it({1: 2}).should.be.no.empty
+        it(set([1])).should.be.no.empty
+
     def test_raises(self):
         with it.raises(IndexError):
             a = []

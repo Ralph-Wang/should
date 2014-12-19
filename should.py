@@ -137,6 +137,11 @@ class _Should(object):
         self._assert(res, msg)
         return self
 
+    @property
+    def empty(self):
+        self.length(0)
+        return self
+
     def __values(self, exp, actual):
         res = (actual is not exp) if self._not else (actual is exp)
         msg_format = '{0} should be {1}{2}'.format
