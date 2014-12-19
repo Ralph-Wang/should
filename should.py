@@ -5,6 +5,11 @@ from contextlib import contextmanager
 import re
 import sys
 
+
+# compact 3.*
+if 'basestring' not in __builtins__:
+    basestring = str
+
 _just_chains = {
     'should': None, 'have': 'have', 'an': None, 'of': None,
     'a': None, 'be': 'be', 'also': None
