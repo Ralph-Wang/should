@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 
+'''
+should.py:
+    BDD assertion library
+
+    Sample:
+        >>> from should import it
+        >>> it(1).should.be.int.also.be.equal(1)
+        >>> it(lambda: foo()).should.throw(ValueError)
+        >>> it(lambda: foo()).should.throw("Some Message")
+'''
+
 from functools import partial
 from contextlib import contextmanager
 import re
@@ -21,23 +32,36 @@ _basic_types = list(filter(lambda t: type(t) is type, __builtins__.values()))
 
 # which 有别的用处
 
+# boolean 值和 None 的断言可以简化为 it(True).should.be.true
 _basic_values = {
     'true': True,
     'false': False,
     'none': None
 }
 
+# 所有的单值断言
 _assertions = {
+        # it([1]).should.contain(1)
     'contain': lambda exp, actual: exp in actual,
+        # it(1).should.be.equal(1)
     'equal': lambda exp, actual: actual == exp,
+        # it(5).should.be.less(7)
     'less': lambda exp, actual: actual < exp,
+        # it(5).should.be.greater(3)
     'greater': lambda exp, actual: actual > exp,
+        # it('abcdefg').should.be.startswith('abc')
     'startswith': lambda exp, actual: actual.startswith(exp),
+        # it('abcdefg').should.be.endswith('defg')
     'endswith': lambda exp, actual: actual.endswith(exp),
+        # it('abc').should.be.length(3)
     'length': lambda exp, actual: len(actual) == exp,
+        # it({'a': 1}).should.have.key('a')
     'key': lambda exp, actual: exp in actual.keys(),
+        # it('a').should.be.instanceof(basestring)
     'instanceof': lambda exp, actual: isinstance(actual, exp),
+        # it('string').should.match(r'tr.')
     'match': lambda exp, actual: re.search(exp, actual) is not None,
+        # it('string').should.search(r'tr.')
     'search': lambda exp, actual: re.search(exp, actual) is not None
 }
 
@@ -66,6 +90,12 @@ class _Should(object):
             setattr(self, assertion, p)
 
     def throw(self, exception):
+        '''
+        异常断言.
+        Sample:
+            >>> it(lambda: foo()).should.throw(ValueError)
+            >>> it(lambda: foo()).should.throw("Error Message")
+        '''
         if isinstance(exception, basestring):
             exe_msg = exception
             exception = Exception
@@ -115,6 +145,9 @@ class _Should(object):
         return self
 
     def _chain(self, conj='be', cls=None):
+        '''
+        单纯用来做链式调用的属性
+        '''
         self._conj = self._conj if conj is None else conj
         return self
 
@@ -147,6 +180,9 @@ class _Should(object):
         return self
 
     def within(self, less, greater):
+        '''
+        范围断言, 值在 less, greater 之间
+        '''
         res = less <= self._val <= greater
         msg_format = '{0} should be {1}within {2}, {3}'.format
         if self._not:
@@ -157,12 +193,25 @@ class _Should(object):
 
     @property
     def ok(self):
+        '''
+        boolean 断言, 值的布尔值为 True
+        Sample:
+            >>> it(1).should.be.ok
+            >>> it(0).should.be.no.ok
+        '''
         res, msg = self._ok(self._val)
         self._assert(res, msg)
         return self
 
     @property
     def empty(self):
+        '''
+        断言容器为空
+        Sample:
+            >>> it({}).should.be.empty
+            >>> it([]).should.be.empty
+            >>> it([1]).should.be.no.empty
+        '''
         self.length(0)
         return self
 
