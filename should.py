@@ -146,6 +146,15 @@ class _Should(object):
         self._assert(res, msg)
         return self
 
+    def within(self, less, greater):
+        res = less <= self._val <= greater
+        msg_format = '{0} should be {1}within {2}, {3}'.format
+        if self._not:
+            res = not res
+        msg = msg_format(self._val, self._flag, less, greater)
+        self._assert(res, msg)
+        return self
+
     @property
     def ok(self):
         res, msg = self._ok(self._val)

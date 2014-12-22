@@ -69,6 +69,11 @@ class Test_it(object):
         it(0).be.no.greater(0)
         it(0).be.no.greater(5)
 
+    def test_within(self):
+        it(0).should.be.within(-1,1)
+        it(10).should.be.within(8, 10)
+        it(20).should.be.no.within(8, 10)
+
     def test_contain(self):
         it([1,2,3]).contain(1)
         it(set([1,2,3])).contain(3)
