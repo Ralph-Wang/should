@@ -6,6 +6,7 @@ v0.4.7
 
 * 添加 `within` 接口
 * should.py 文件中添加自文档
+* 添加 `proper` / `own_proper` 接口
 
 v0.4.6
 ~~~~~~~~~~~~~~~~

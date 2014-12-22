@@ -19,14 +19,12 @@ import sys
 
 _just_chains = {
     'should': None, 'have': 'have', 'an': None, 'of': None,
-    'a': None, 'be': 'be', 'also': None
+    'a': None, 'be': 'be', 'also': None, 'which': None
 }
 
 _not_chains = {'no': None}
 
 _basic_types = list(filter(lambda t: type(t) is type, __builtins__.values()))
-
-# which 有别的用处
 
 # boolean 值和 None 的断言可以简化为 it(True).should.be.true
 _basic_values = {
@@ -209,6 +207,29 @@ class _Should(object):
             >>> it([1]).should.be.no.empty
         '''
         self.length(0)
+        return self
+
+    def proper(self, name):
+        self.__property(name, False)
+        return self
+
+    def own_proper(self, name):
+        self.__property(name, True)
+        return self
+
+    def __property(self, name, own=False):
+        if own:
+            pps = self._val.__dict__.keys()
+        else:
+            pps = dir(self._val)
+        res = name in pps
+        msg_format = '{0} should{1} have {2}property {3}'.format
+        if self._not:
+            res = not res
+        msg = msg_format(self._val, self._flag, 'own ' if own else '', name)
+        self._assert(res, msg)
+        # 修改链式调用中需要断言的值
+        self._val = getattr(self._val, name)
         return self
 
     def __values(self, exp, actual):

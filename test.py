@@ -78,6 +78,21 @@ class Test_it(object):
         it([1,2,3]).contain(1)
         it(set([1,2,3])).contain(3)
 
+    def test_proper(self):
+        class A:
+            a = 1
+        a = A()
+        it(a).should.have.proper('a').which.should.be.equal(1)
+
+    def test_own_proper(self):
+        class A:
+            a = 1
+            def __init__(self):
+                self.b = 1
+        a = A()
+        it(a).should.have.no.own_proper('a')
+        it(a).should.have.own_proper('b').which.should.be.equal(1)
+
     def test_length(self):
         it([]).have.length(0)
         it([1] * 10).have.length(10)
