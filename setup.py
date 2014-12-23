@@ -7,7 +7,7 @@ try:
 except:
     content = ''
 
-version = '0.4.7'
+version = '0.4.8'
 
 setup(name='should',
       version=version,

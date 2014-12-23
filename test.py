@@ -186,7 +186,8 @@ class Test_it(object):
         def foo():
             raise ValueError("some msg")
 
-        it(foo).should.throw(ValueError).also.throw(u"some msg")
+        # 3.2 没有 u'' 字面量... 能不这么奇葩么...
+        # it(foo).should.throw(ValueError).also.throw(u"some msg")
         it(foo).should.throw(ValueError).also.throw("some msg")
 
         it(foo).should.no.throw("123")
