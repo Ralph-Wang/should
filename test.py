@@ -128,6 +128,10 @@ class Test_it(object):
         it({'l1': 'v1'}).have.key('l1')
         it({'l1': 'v1'}).have.no.key('l2')
 
+    def test_keys(self):
+        it({'l1': 'v1', 'l2': 'v2'}).have.keys('l1', 'l2')
+        it({'l1': 'v1', 'l2': 'v2'}).have.keys(['l1', 'l2'])
+
     def test_instanceof(self):
         it({'l1': 'v1'}).should.be.instanceof(dict)
         it({'l1': 'v1'}).should.be.no.instanceof(int)

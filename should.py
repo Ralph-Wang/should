@@ -226,6 +226,24 @@ class _Should(object):
 
     own_property = own_proper
 
+    def keys(self, *args):
+        '''
+        键值列表断言. 针对字典的键
+        Sample:
+            >>> it({'a':1, 'b':2}).should.have.keys('a', 'b')
+            >>> it({'a':1, 'b':2}).should.have.keys(['a', 'b'])
+        '''
+        keys = []
+        for i in args:
+            if isinstance(i, list):
+                keys.extend(i)
+            else:
+                keys.append(i)
+
+        for key in keys:
+            self.key(key)
+        return self
+
     def properties(self, *args):
         '''
         属性列表断言. 包含类属性以及继承得到的属性
