@@ -159,6 +159,7 @@ class Test_it(object):
         def foo():
             raise ValueError("some msg")
 
+        it(foo).should.throw(ValueError).also.throw(u"some msg")
         it(foo).should.throw(ValueError).also.throw("some msg")
 
         it(foo).should.no.throw("123")

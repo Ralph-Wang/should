@@ -90,12 +90,7 @@ class _Should(object):
             >>> it(lambda: foo()).should.throw(ValueError)
             >>> it(lambda: foo()).should.throw("Error Message")
         '''
-        # compact 3.*
-        try:
-            basestring
-        except NameError:
-            basestring = str
-        if isinstance(exception, basestring):
+        if str(exception) == exception:
             exe_msg = exception
             exception = Exception
             msg = ('should {0}raise msg:' + exe_msg).format
