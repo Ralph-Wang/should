@@ -5,6 +5,9 @@ v0.4.8
 ~~~~~~~~~~~~~~~~
 
 * fix `throw` 在 2.* 只能接受 `str` 的问题
+* 如 it(1).should.be.int 的类型断言, 不断言 property
+* proper 和 own_proper 增加别名 property 和 own_property
+* 增加 properties 和 own_properties. 支持列表式断言
 
 v0.4.7
 ~~~~~~~~~~~~~~~~

@@ -25,6 +25,7 @@ _just_chains = {
 _not_chains = {'no': None}
 
 _basic_types = list(filter(lambda t: type(t) is type, __builtins__.values()))
+_basic_types.remove(property)
 
 # boolean 值和 None 的断言可以简化为 it(True).should.be.true
 _basic_values = {
@@ -211,10 +212,52 @@ class _Should(object):
 
     def proper(self, name):
         self.__property(name, False)
+        # 修改链式调用中需要断言的值
+        self._val = getattr(self._val, name)
         return self
+
+    property = proper
 
     def own_proper(self, name):
         self.__property(name, True)
+        # 修改链式调用中需要断言的值
+        self._val = getattr(self._val, name)
+        return self
+
+    own_property = own_proper
+
+    def properties(self, *args):
+        '''
+        属性列表断言. 包含类属性以及继承得到的属性
+        Samle:
+            >>> it(obj).should.have.properties('a', 'b' , 'c')
+            >>> it(obj).should.have.properties(['a', 'b' , 'c'])
+        '''
+        propers = []
+        for i in args:
+            if isinstance(i, list):
+                propers.extend(i)
+            else:
+                propers.append(i)
+        for proper in propers:
+            self.__property(proper)
+        return self
+
+    def own_properties(self, *args):
+        '''
+        属性列表断言. 必须是实例自己的属性
+        Sample:
+            >>> it(obj).should.have.properties('a', 'b' , 'c')
+            >>> it(obj).should.have.properties(['a', 'b' , 'c'])
+        '''
+        propers = []
+        for i in args:
+            if isinstance(i, list):
+                propers.extend(i)
+            else:
+                propers.append(i)
+        for proper in propers:
+            self.__property(proper, True)
         return self
 
     def __property(self, name, own=False):
@@ -228,8 +271,6 @@ class _Should(object):
             res = not res
         msg = msg_format(self._val, self._flag, 'own ' if own else '', name)
         self._assert(res, msg)
-        # 修改链式调用中需要断言的值
-        self._val = getattr(self._val, name)
         return self
 
     def __values(self, exp, actual):
