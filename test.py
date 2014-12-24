@@ -164,23 +164,12 @@ class Test_it(object):
         it({1: 2}).should.be.no.empty
         it(set([1])).should.be.no.empty
 
-    def test_raises(self):
-        with it.raises(IndexError):
-            a = []
-            a[0]
-
-        with it.raises(ValueError):
-            int('abc')
-
-        try:
-            with it.raises(ValueError):
-                int('13')
-        except AssertionError:
-            pass
-
     def test_throw(self):
         it(lambda: int('abc')).throw(ValueError)
         it(lambda: int('123')).no.throw(ValueError)
+
+        it(lambda: int('abc')).raises(ValueError)
+        it(lambda: int('123')).no.raises(ValueError)
 
     def test_throw_msg(self):
         def foo():
@@ -189,8 +178,10 @@ class Test_it(object):
         # 3.2 没有 u'' 字面量... 能不这么奇葩么...
         # it(foo).should.throw(ValueError).also.throw(u"some msg")
         it(foo).should.throw(ValueError).also.throw("some msg")
+        it(foo).should.raises(ValueError).also.raises("some msg")
 
         it(foo).should.no.throw("123")
+        it(foo).should.no.raises("123")
 
     def test_msg(self):
         try:

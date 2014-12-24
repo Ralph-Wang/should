@@ -12,9 +12,7 @@ should.py:
 '''
 
 from functools import partial
-from contextlib import contextmanager
 import re
-import sys
 
 
 _just_chains = {
@@ -112,21 +110,7 @@ class _Should(object):
         self._assert(res, msg(self._flag))
         return self
 
-    @staticmethod
-    @contextmanager
-    def raises(exception):
-        '''
-        异常的断言, 会在 0.5 废弃
-        @param {Exception} exception 需要抛出的异常
-        '''
-        try:
-            yield
-            sys.stderr.write(
-                'raises will be deprecated in 0.5, use throw please.\n')
-        except exception:
-            pass
-        else:
-            assert False, 'should raise ' + exception.__name__
+    raises = throw
 
     @classmethod
     def _set_property(cls, dct, fget, fset=None):
