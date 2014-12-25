@@ -90,6 +90,7 @@ class Test_it(object):
         a = A()
         it(a).should.have.proper('a').which.should.be.equal(1)
         it(a).should.have.property('a').which.should.be.equal(1)
+        it(a).should.have.no.property('c').which.should.be.none
 
     def test_own_proper(self):
         class A:

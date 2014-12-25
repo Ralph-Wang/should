@@ -230,7 +230,7 @@ class _Should(object):
     def proper(self, name):
         self.__property(name, False)
         # 修改链式调用中需要断言的值
-        self._val = getattr(self._val, name)
+        self._val = getattr(self._val, name, None)
         return self
 
     property = proper
@@ -238,7 +238,7 @@ class _Should(object):
     def own_proper(self, name):
         self.__property(name, True)
         # 修改链式调用中需要断言的值
-        self._val = getattr(self._val, name)
+        self._val = getattr(self._val, name, None)
         return self
 
     own_property = own_proper
