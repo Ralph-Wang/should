@@ -13,6 +13,10 @@ should.py:
 
 from functools import partial
 import re
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 
 _just_chains = {

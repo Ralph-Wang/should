@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from should import it
+import sys
+
+py3 = sys.version_info[0] == 3
 
 
 class Test_it(object):
@@ -34,6 +37,9 @@ class Test_it(object):
     def test_equal(self):
         it(0).be.equal(0)
         it('string').be.equal('string')
+        if not py3:
+            it(u'string').be.equal(u'string')
+            it(u'中文').be.equal(u'中文')
         it({}).be.equal({})
         it([]).be.equal([])
         it(()).be.equal(())
@@ -175,8 +181,8 @@ class Test_it(object):
         def foo():
             raise ValueError("some msg")
 
-        # 3.2 没有 u'' 字面量... 能不这么奇葩么...
-        # it(foo).should.throw(ValueError).also.throw(u"some msg")
+        if not py3:
+            it(foo).should.throw(ValueError).also.throw(u"some msg")
         it(foo).should.throw(ValueError).also.throw("some msg")
         it(foo).should.raises(ValueError).also.raises("some msg")
 
