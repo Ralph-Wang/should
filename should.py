@@ -52,8 +52,6 @@ _assertions = {
     'endswith': lambda exp, actual: actual.endswith(exp),
         # it('abc').should.be.length(3)
     'length': lambda exp, actual: len(actual) == exp,
-        # it({'a': 1}).should.have.key('a')
-    'key': lambda exp, actual: exp in actual.keys(),
         # it('a').should.be.instanceof(basestring)
     'instanceof': lambda exp, actual: isinstance(actual, exp),
         # it('string').should.match(r'tr.')
@@ -198,21 +196,18 @@ class _Should(object):
         self.length(0)
         return self
 
-    def proper(self, name):
-        self.__property(name, False)
-        # 修改链式调用中需要断言的值
-        self._val = getattr(self._val, name)
+
+    def key(self, name):
+        '''
+        键值断言. 针对字典的键. 会改变链式调用的断言值.
+        不存在的 key 会将链式调用值变为 None
+        Sample:
+            >>> it({'a':1, 'b':2}).should.have.key('a').which.should.be.equal(1)
+            >>> it({'a':1, 'b':2}).should.have.key('c').which.should.be.none
+        '''
+        self.__key(name)
+        self._val = self._val.get(name, None)
         return self
-
-    property = proper
-
-    def own_proper(self, name):
-        self.__property(name, True)
-        # 修改链式调用中需要断言的值
-        self._val = getattr(self._val, name)
-        return self
-
-    own_property = own_proper
 
     def keys(self, *args):
         '''
@@ -229,8 +224,24 @@ class _Should(object):
                 keys.append(i)
 
         for key in keys:
-            self.key(key)
+            self.__key(key)
         return self
+
+    def proper(self, name):
+        self.__property(name, False)
+        # 修改链式调用中需要断言的值
+        self._val = getattr(self._val, name)
+        return self
+
+    property = proper
+
+    def own_proper(self, name):
+        self.__property(name, True)
+        # 修改链式调用中需要断言的值
+        self._val = getattr(self._val, name)
+        return self
+
+    own_property = own_proper
 
     def properties(self, *args):
         '''
@@ -264,6 +275,15 @@ class _Should(object):
                 propers.append(i)
         for proper in propers:
             self.__property(proper, True)
+        return self
+
+    def __key(self, name):
+        res = name in self._val
+        if  self._not:
+            res = not res
+        msg_format = '{0} should{1} have key {2}'.format
+        msg = msg_format(self._val, self._flag, name)
+        self._assert(res, msg)
         return self
 
     def __property(self, name, own=False):

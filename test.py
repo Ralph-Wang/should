@@ -131,8 +131,8 @@ class Test_it(object):
         it({'k1': 'v1', 'k2': 'v2'}).have.length(2)
 
     def test_key(self):
-        it({'l1': 'v1'}).have.key('l1')
-        it({'l1': 'v1'}).have.no.key('l2')
+        it({'l1': 'v1'}).have.key('l1').which.should.be.equal('v1')
+        it({'l1': 'v1'}).have.no.key('l2').which.be.none
 
     def test_keys(self):
         it({'l1': 'v1', 'l2': 'v2'}).have.keys('l1', 'l2')
