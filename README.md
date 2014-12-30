@@ -85,7 +85,8 @@ it([]).should.be.no.ok
 ### .true / .false / .none
 
 断言对象就是 True, False, None
-因为大写开头的 True/False/None 在 3.* 中变成保留字, 所以这里改用小写
+
+因为大写开头的 True/False/None 在 3.\* 中变成保留字, 所以这里改用小写
 
 ```
 it(True).should.be.true
@@ -132,7 +133,7 @@ it(25).should.be.greater(22)
 
 ### 类型断言 ###
 
-除 `<type 'property'` 以外的内建类型断言 (is)
+除 `<type 'property'>` 以外的内建类型断言 (is)
 
 ```
 it(1).should.be.int
@@ -178,6 +179,7 @@ it(A()).should.have.no.own_property('b').which.should.be.equal(1)
 ### .properties(name1, name2, ...) / .own_properties(name1, name2, ...) ###
 
 断言对象有一组属性.
+
 这两个接口不会改变调用链
 
 ```
@@ -210,7 +212,18 @@ it([1,2,3]).should.be.no.empty
 ### .key(name) ###
 
 断言一个字典有 `name` 键 (in dict.keys())
+
 `.key` 会改变调用链为该键对应的值
+
+```
+it({'a': 1}).should.have.key('a').which.should.be.equal(1)
+```
+
+### .keys(name1, name2, ...) ###
+
+断言对象有一组键.
+
+这两个接口不会改变调用链
 
 ```
 it({'a': 1}).should.have.key('a').which.should.be.equal(1)
