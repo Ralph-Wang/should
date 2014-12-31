@@ -14,11 +14,13 @@ should.py:
 from .should import Should
 from .ext import *
 
+
 def it(obj):
     ret = Should(obj)
     ret.use(Chain)\
         .use(ValueAssertions)\
-        .use(ErrorAssertions)
+        .use(ErrorAssertions)\
+        .use(PropertyAssertions)
     return ret
 
 should = it

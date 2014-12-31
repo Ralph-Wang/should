@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 class _ChainMeta(object):
 
     def __new__(cls, name, bases, attrs):

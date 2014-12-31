@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 class ValueAssertions(object):
 
     @property
@@ -30,4 +31,3 @@ class ValueAssertions(object):
         msg = msg_format(self._val, self._flag, less, greater)
         self._assert(res, msg)
         return self
-

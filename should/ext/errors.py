@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 class ErrorAssertions(object):
 
     def throw(self, exception):
