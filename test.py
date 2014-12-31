@@ -190,27 +190,27 @@ class Test_it(object):
         it(foo).should.no.throw("123")
         it(foo).should.no.raises("123")
 
-    def test_msg(self):
-        try:
-            it(1).be.equal(2)
-        except AssertionError as e:
-            assert 'not' not in str(e)
-            assert 'be' in str(e)
+    # def test_msg(self):
+    #     try:
+    #         it(1).be.equal(2)
+    #     except AssertionError as e:
+    #         assert 'not' not in str(e)
+    #         assert 'be' in str(e)
 
-        try:
-            it([1]).should.contain(2)
-        except AssertionError as e:
-            assert 'not' not in str(e)
-            assert 'be' not in str(e)
+    #     try:
+    #         it([1]).should.contain(2)
+    #     except AssertionError as e:
+    #         assert 'not' not in str(e)
+    #         assert 'be' not in str(e)
 
-        try:
-            it(1).be.no.equal(1)
-        except AssertionError as e:
-            assert 'not' in str(e)
-            assert 'be' in str(e)
+    #     try:
+    #         it(1).be.no.equal(1)
+    #     except AssertionError as e:
+    #         assert 'not' in str(e)
+    #         assert 'be' in str(e)
 
-        try:
-            it({'k1': 'v1'}).should.have.key('l1')
-        except AssertionError as e:
-            assert 'have' in str(e)
-            assert 'be' not in str(e)
+    #     try:
+    #         it({'k1': 'v1'}).should.have.key('l1')
+    #     except AssertionError as e:
+    #         assert 'have' in str(e)
+    #         assert 'be' not in str(e)

@@ -22,13 +22,6 @@ if not PY3:
     sys.setdefaultencoding('utf8')
 
 
-_just_chains = {
-    'should': None, 'have': 'have', 'an': None, 'of': None,
-    'a': None, 'be': 'be', 'also': None, 'which': None
-}
-
-_not_chains = {'no': None}
-
 _basic_types = list(filter(lambda t: type(t) is type, __builtins__.values()))
 _basic_types.remove(property)
 
@@ -41,27 +34,40 @@ _basic_values = {
 
 # 所有的单值断言
 _assertions = {
-        # it([1]).should.contain(1)
+    # it([1]).should.contain(1)
     'contain': lambda exp, actual: exp in actual,
-        # it(1).should.be.equal(1)
+    # it(1).should.be.equal(1)
     'equal': lambda exp, actual: actual == exp,
-        # it(5).should.be.less(7)
+    # it(5).should.be.less(7)
     'less': lambda exp, actual: actual < exp,
-        # it(5).should.be.greater(3)
+    # it(5).should.be.greater(3)
     'greater': lambda exp, actual: actual > exp,
-        # it('abcdefg').should.be.startswith('abc')
+    # it('abcdefg').should.be.startswith('abc')
     'startswith': lambda exp, actual: actual.startswith(exp),
-        # it('abcdefg').should.be.endswith('defg')
+    # it('abcdefg').should.be.endswith('defg')
     'endswith': lambda exp, actual: actual.endswith(exp),
-        # it('abc').should.be.length(3)
+    # it('abc').should.be.length(3)
     'length': lambda exp, actual: len(actual) == exp,
-        # it('a').should.be.instanceof(basestring)
+    # it('a').should.be.instanceof(basestring)
     'instanceof': lambda exp, actual: isinstance(actual, exp),
-        # it('string').should.match(r'tr.')
+    # it('string').should.match(r'tr.')
     'match': lambda exp, actual: re.search(exp, actual) is not None,
-        # it('string').should.search(r'tr.')
+    # it('string').should.search(r'tr.')
     'search': lambda exp, actual: re.search(exp, actual) is not None
 }
+
+
+class _ChainMeta(object):
+
+    def __new__(cls, name, bases, attrs):
+        chain = property(lambda self: self)
+        names = ['should', 'have', 'an', 'of', 'a', 'be', 'also', 'which']
+        attrs.update({}.fromkeys(names, chain))
+        return type(name, bases, attrs)
+
+
+class Chain(object):
+    __metaclass__ = _ChainMeta
 
 
 class _Should(object):
@@ -70,9 +76,6 @@ class _Should(object):
         self._val = val
         self._conj = ''
         self._not = False  # `not` flag
-
-        self._set_property(_just_chains, self._chain)
-        self._set_property(_not_chains, self._set_not)
 
         # 初始化断言
         for v in _basic_values:
@@ -86,6 +89,17 @@ class _Should(object):
         for assertion in _assertions:
             p = partial(self._assertions, assertion)
             setattr(self, assertion, p)
+
+    @property
+    def no(self):
+        '''断言取反'''
+        self._not = True
+        return self
+
+    def use(self, cls):
+        origin = self.__class__
+        self.__class__ = type('shouldobj', (cls, origin), {})
+        return self
 
     def throw(self, exception):
         '''
@@ -116,24 +130,6 @@ class _Should(object):
         return self
 
     raises = throw
-
-    @classmethod
-    def _set_property(cls, dct, fget, fset=None):
-        for name, conj in dct.items():
-            p = property(fget=partial(fget, conj), fset=fset)
-            setattr(cls, name, p)
-
-    def _set_not(self, conj=None, cls=None):
-        self._conj = self._conj if conj is None else conj
-        self._not = True
-        return self
-
-    def _chain(self, conj='be', cls=None):
-        '''
-        单纯用来做链式调用的属性
-        '''
-        self._conj = self._conj if conj is None else conj
-        return self
 
     @property
     def _flag(self):
@@ -198,7 +194,6 @@ class _Should(object):
         '''
         self.length(0)
         return self
-
 
     def key(self, name):
         '''
@@ -282,7 +277,7 @@ class _Should(object):
 
     def __key(self, name):
         res = name in self._val
-        if  self._not:
+        if self._not:
             res = not res
         msg_format = '{0} should{1} have key {2}'.format
         msg = msg_format(self._val, self._flag, name)
@@ -319,5 +314,9 @@ class _Should(object):
         return res, msg_format(actual, self._flag)
 
 
-should = _Should
-it = _Should
+def it(obj):
+    ret = _Should(obj)
+    ret.use(Chain)
+    return ret
+
+should = it
