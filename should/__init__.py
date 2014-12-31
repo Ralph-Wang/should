@@ -20,7 +20,8 @@ def it(obj):
     ret.use(Chain)\
         .use(ValueAssertions)\
         .use(ErrorAssertions)\
-        .use(PropertyAssertions)
+        .use(PropertyAssertions)\
+        .use(ContainerAssertions)
     return ret
 
 should = it
