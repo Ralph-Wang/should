@@ -70,11 +70,12 @@ class Chain(object):
     __metaclass__ = _ChainMeta
 
 
-class _Should(object):
+
+
+class Should(object):
 
     def __init__(self, val=None):
         self._val = val
-        self._conj = ''
         self._not = False  # `not` flag
 
         # 初始化断言
@@ -96,49 +97,19 @@ class _Should(object):
         self._not = True
         return self
 
-    def use(self, cls):
-        origin = self.__class__
-        self.__class__ = type('shouldobj', (cls, origin), {})
-        return self
-
-    def throw(self, exception):
-        '''
-        异常断言.
-        Sample:
-            >>> it(lambda: foo()).should.throw(ValueError)
-            >>> it(lambda: foo()).should.throw("Error Message")
-        '''
-        if str(exception) == exception:
-            exe_msg = exception
-            exception = Exception
-            msg = ('should {0}raise msg:' + exe_msg).format
-        else:
-            exe_msg = None
-            msg = ('should {0}raise ' + exception.__name__).format
-
-        try:
-            self._val()
-        except exception as e:
-            res = True
-            if exe_msg is not None:
-                res = exe_msg in str(e)
-        else:
-            res = False
-        if self._not:
-            res = not res
-        self._assert(res, msg(self._flag))
-        return self
-
-    raises = throw
+    def _assert(self, res, msg):
+        ''' 统一的 assert 方法, 每次断言之后取消取否 '''
+        assert res, msg
+        self._not = False
 
     @property
     def _flag(self):
         return 'not ' if self._not else ''
 
-    def _assert(self, res, msg):
-        ''' 统一的 assert 方法, 每次断言之后取消取否 '''
-        assert res, msg
-        self._not = False
+    def use(self, cls):
+        origin = self.__class__
+        self.__class__ = type('shouldobj', (cls, origin), {})
+        return self
 
     def _values(self, value, cls):
         res, msg = self.__values(value, self._val)
@@ -152,36 +123,13 @@ class _Should(object):
 
     def _assertions(self, assertion, exp):
         res = _assertions[assertion](exp, self._val)
-        msg_format = '{0} should {1}{2} {3} {4}'.format
+        msg_format = '{0} should {1}{2} {3}'.format
         if self._not:
             res = not res
-        msg = msg_format(self._val, self._flag, self._conj, assertion, exp)
+        msg = msg_format(self._val, self._flag, assertion, exp)
         self._assert(res, msg)
         return self
 
-    def within(self, less, greater):
-        '''
-        范围断言, 值在 less, greater 之间
-        '''
-        res = less <= self._val <= greater
-        msg_format = '{0} should be {1}within {2}, {3}'.format
-        if self._not:
-            res = not res
-        msg = msg_format(self._val, self._flag, less, greater)
-        self._assert(res, msg)
-        return self
-
-    @property
-    def ok(self):
-        '''
-        boolean 断言, 值的布尔值为 True
-        Sample:
-            >>> it(1).should.be.ok
-            >>> it(0).should.be.no.ok
-        '''
-        res, msg = self._ok(self._val)
-        self._assert(res, msg)
-        return self
 
     @property
     def empty(self):
@@ -308,15 +256,3 @@ class _Should(object):
         msg_format = '{0} should be {1}{2}'.format
         return res, msg_format(value, self._flag, exp)
 
-    def _ok(self, actual):
-        res = not bool(actual) if self._not else bool(actual)
-        msg_format = '{0}\'s bool value is {1}True'.format
-        return res, msg_format(actual, self._flag)
-
-
-def it(obj):
-    ret = _Should(obj)
-    ret.use(Chain)
-    return ret
-
-should = it
