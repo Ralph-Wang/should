@@ -4,6 +4,28 @@
 class ValueAssertions(object):
 
     @property
+    def true(self):
+        return self._values(True)
+
+    @property
+    def false(self):
+        return self._values(False)
+
+    @property
+    def none(self):
+        return self._values(None)
+
+    def _values(self, value):
+        res, msg = self.__values(value, self._val)
+        self._assert(res, msg)
+        return self
+
+    def __values(self, exp, actual):
+        res = (actual is not exp) if self._not else (actual is exp)
+        msg_format = '{0} should be {1}{2}'.format
+        return res, msg_format(actual, self._flag, exp)
+
+    @property
     def ok(self):
         '''
         boolean 断言, 值的布尔值为 True

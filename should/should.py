@@ -25,13 +25,6 @@ if not PY3:
 _basic_types = list(filter(lambda t: type(t) is type, __builtins__.values()))
 _basic_types.remove(property)
 
-# boolean 值和 None 的断言可以简化为 it(True).should.be.true
-_basic_values = {
-    'true': True,
-    'false': False,
-    'none': None
-}
-
 # 所有的单值断言
 _assertions = {
     # it([1]).should.contain(1)
@@ -56,20 +49,6 @@ _assertions = {
     'search': lambda exp, actual: re.search(exp, actual) is not None
 }
 
-
-class _ChainMeta(object):
-
-    def __new__(cls, name, bases, attrs):
-        chain = property(lambda self: self)
-        names = ['should', 'have', 'an', 'of', 'a', 'be', 'also', 'which']
-        attrs.update({}.fromkeys(names, chain))
-        return type(name, bases, attrs)
-
-
-class Chain(object):
-    __metaclass__ = _ChainMeta
-
-
 class Should(object):
 
     def __init__(self, val=None):
@@ -77,10 +56,6 @@ class Should(object):
         self._not = False  # `not` flag
 
         # 初始化断言
-        for v in _basic_values:
-            p = property(fget=partial(self._values, _basic_values[v]))
-            setattr(self.__class__, v, p)
-
         for t in _basic_types:
             p = property(fget=partial(self._types, t))
             setattr(self.__class__, t.__name__, p)
@@ -109,11 +84,6 @@ class Should(object):
         self.__class__ = type('shouldobj', (cls, origin), {})
         return self
 
-    def _values(self, value, cls):
-        res, msg = self.__values(value, self._val)
-        self._assert(res, msg)
-        return self
-
     def _types(self, ttype, cls):
         res, msg = self.__types(ttype, self._val)
         self._assert(res, msg)
@@ -127,12 +97,6 @@ class Should(object):
         msg = msg_format(self._val, self._flag, assertion, exp)
         self._assert(res, msg)
         return self
-
-
-    def __values(self, exp, actual):
-        res = (actual is not exp) if self._not else (actual is exp)
-        msg_format = '{0} should be {1}{2}'.format
-        return res, msg_format(actual, self._flag, exp)
 
     def __types(self, exp, value):
         actual = type(value)
