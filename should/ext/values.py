@@ -3,6 +3,14 @@
 
 class ValueAssertions(object):
 
+    def equal(self, exp):
+        res = self._val == exp
+        if self._flag:
+            res = not res
+        msg = '{0} should {1}be equal to {2}'.format
+        self._assert(res, msg(self._val, self._flag, exp))
+        return self
+
     @property
     def true(self):
         return self._values(True)

@@ -11,6 +11,23 @@ class CommonAssertions(object):
         self.length(0)
         return self
 
+    def length(self, exp):
+        res = len(self._val) == exp
+        if self._not:
+            res = not res
+        msg = '{0} should {1}have length {2}'.format
+        self._assert(res, msg(self._val, self._flag, exp))
+        return self
+
+    def contain(self, exp):
+        res = exp in self._val
+        if self._not:
+            res = not res
+        msg = '{0} should {1}contain {2}'.format
+        self._assert(res, msg(self._val, self._flag, exp))
+        return self
+
+
 class DictAssertions(object):
 
     def key(self, name):

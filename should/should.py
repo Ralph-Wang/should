@@ -23,18 +23,10 @@ if not PY3:
 
 # 所有的单值断言
 _assertions = {
-    # it([1]).should.contain(1)
-    'contain': lambda exp, actual: exp in actual,
-    # it(1).should.be.equal(1)
-    'equal': lambda exp, actual: actual == exp,
     # it('abcdefg').should.be.startswith('abc')
     'startswith': lambda exp, actual: actual.startswith(exp),
     # it('abcdefg').should.be.endswith('defg')
     'endswith': lambda exp, actual: actual.endswith(exp),
-    # it('abc').should.be.length(3)
-    'length': lambda exp, actual: len(actual) == exp,
-    # it('a').should.be.instanceof(basestring)
-    'instanceof': lambda exp, actual: isinstance(actual, exp),
     # it('string').should.match(r'tr.')
     'match': lambda exp, actual: re.search(exp, actual) is not None,
     # it('string').should.search(r'tr.')
