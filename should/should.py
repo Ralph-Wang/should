@@ -21,10 +21,6 @@ if not PY3:
     reload(sys)
     sys.setdefaultencoding('utf8')
 
-
-_basic_types = list(filter(lambda t: type(t) is type, __builtins__.values()))
-_basic_types.remove(property)
-
 # 所有的单值断言
 _assertions = {
     # it([1]).should.contain(1)
@@ -56,10 +52,6 @@ class Should(object):
         self._not = False  # `not` flag
 
         # 初始化断言
-        for t in _basic_types:
-            p = property(fget=partial(self._types, t))
-            setattr(self.__class__, t.__name__, p)
-
         for assertion in _assertions:
             p = partial(self._assertions, assertion)
             setattr(self, assertion, p)
@@ -84,11 +76,6 @@ class Should(object):
         self.__class__ = type('shouldobj', (cls, origin), {})
         return self
 
-    def _types(self, ttype, cls):
-        res, msg = self.__types(ttype, self._val)
-        self._assert(res, msg)
-        return self
-
     def _assertions(self, assertion, exp):
         res = _assertions[assertion](exp, self._val)
         msg_format = '{0} should {1}{2} {3}'.format
@@ -98,8 +85,3 @@ class Should(object):
         self._assert(res, msg)
         return self
 
-    def __types(self, exp, value):
-        actual = type(value)
-        res = (actual is not exp) if self._not else (actual is exp)
-        msg_format = '{0} should be {1}{2}'.format
-        return res, msg_format(value, self._flag, exp)

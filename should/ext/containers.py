@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+__all__ = ['ContainerAssertions']
+
 class CommonAssertions(object):
     @property
     def empty(self):
