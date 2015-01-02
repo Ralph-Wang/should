@@ -2,7 +2,9 @@
 
 __all__ = ['ContainerAssertions']
 
+
 class CommonAssertions(object):
+
     @property
     def empty(self):
         '''
@@ -62,6 +64,7 @@ class DictAssertions(object):
         msg = msg_format(self._val, self._flag, name)
         self._assert(res, msg)
         return self
+
 
 class ContainerAssertions(CommonAssertions, DictAssertions):
     pass

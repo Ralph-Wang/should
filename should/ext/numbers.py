@@ -4,9 +4,8 @@
 __all__ = ['NumberAssertions']
 
 
-
-
 class NumberAssertions(object):
+
     def less(self, exp):
         res = self._val < exp
         if self._not:

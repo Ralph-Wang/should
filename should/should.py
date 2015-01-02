@@ -19,6 +19,7 @@ if not PY3:
     reload(sys)
     sys.setdefaultencoding('utf8')
 
+
 class Should(object):
 
     def __init__(self, val=None):

@@ -4,7 +4,9 @@ import re
 
 __all__ = ['StringAssertions']
 
+
 class StringAssertions(object):
+
     def startswith(self, exp):
         res = self._val.startswith(exp)
         if self._not:

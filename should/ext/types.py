@@ -4,7 +4,9 @@ from functools import partial
 
 __all__ = ['TypeAssertions']
 
+
 class InstanceAssertions(object):
+
     def instanceof(self, exp):
         res = isinstance(self._val, exp)
         if self._not:
@@ -12,6 +14,7 @@ class InstanceAssertions(object):
         msg = '{0} should {1}be instance of {2}'.format
         self._assert(res, msg(self._val, self._flag, exp))
         return self
+
 
 def type_assert(exp, self):
     '''
@@ -23,6 +26,7 @@ def type_assert(exp, self):
     self._assert(res, msg_format(actual, self._flag, exp))
     return self
 
+
 def type_meta(name, bases, attrs):
     types = list(filter(lambda t: type(t) is type, __builtins__.values()))
     types.remove(property)
@@ -31,6 +35,7 @@ def type_meta(name, bases, attrs):
     return type(name, bases, attrs)
 
 _TypeAssertions = type_meta('_TypeAssertions', (object,), {})
+
 
 class TypeAssertions(_TypeAssertions, InstanceAssertions):
     pass
