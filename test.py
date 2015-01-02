@@ -70,10 +70,20 @@ class Test_it(object):
         it(5).be.no.less(5)
         it(5).be.no.less(4)
 
+        # below
+        it(0).be.below(5)
+        it(5).be.no.below(5)
+        it(5).be.no.below(4)
+
     def test_greater(self):
         it(0).be.greater(-1)
         it(0).be.no.greater(0)
         it(0).be.no.greater(5)
+
+        # above
+        it(0).be.above(-1)
+        it(0).be.no.above(0)
+        it(0).be.no.above(5)
 
     def test_within(self):
         it(0).should.be.within(-1,1)

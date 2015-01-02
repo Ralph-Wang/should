@@ -27,10 +27,6 @@ _assertions = {
     'contain': lambda exp, actual: exp in actual,
     # it(1).should.be.equal(1)
     'equal': lambda exp, actual: actual == exp,
-    # it(5).should.be.less(7)
-    'less': lambda exp, actual: actual < exp,
-    # it(5).should.be.greater(3)
-    'greater': lambda exp, actual: actual > exp,
     # it('abcdefg').should.be.startswith('abc')
     'startswith': lambda exp, actual: actual.startswith(exp),
     # it('abcdefg').should.be.endswith('defg')

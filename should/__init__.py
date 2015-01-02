@@ -22,7 +22,8 @@ def it(obj):
         .use(ErrorAssertions)\
         .use(PropertyAssertions)\
         .use(ContainerAssertions)\
-        .use(TypeAssertions)
+        .use(TypeAssertions)\
+        .use(NumberAssertions)
     return ret
 
 should = it
