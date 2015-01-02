@@ -200,6 +200,9 @@ class Test_it(object):
         it(foo).should.no.throw("123")
         it(foo).should.no.raises("123")
 
+    def test_embeded(self):
+        it(lambda: it(1).should.equal(2)).throw(AssertionError)
+
     # def test_msg(self):
     #     try:
     #         it(1).be.equal(2)
