@@ -11,8 +11,6 @@ should.py:
         >>> it(lambda: foo()).should.throw("Some Message")
 '''
 
-from functools import partial
-import re
 import sys
 
 PY3 = sys.version_info[0] == 3
@@ -21,28 +19,11 @@ if not PY3:
     reload(sys)
     sys.setdefaultencoding('utf8')
 
-# 所有的单值断言
-_assertions = {
-    # it('abcdefg').should.be.startswith('abc')
-    'startswith': lambda exp, actual: actual.startswith(exp),
-    # it('abcdefg').should.be.endswith('defg')
-    'endswith': lambda exp, actual: actual.endswith(exp),
-    # it('string').should.match(r'tr.')
-    'match': lambda exp, actual: re.search(exp, actual) is not None,
-    # it('string').should.search(r'tr.')
-    'search': lambda exp, actual: re.search(exp, actual) is not None
-}
-
 class Should(object):
 
     def __init__(self, val=None):
         self._val = val
         self._not = False  # `not` flag
-
-        # 初始化断言
-        for assertion in _assertions:
-            p = partial(self._assertions, assertion)
-            setattr(self, assertion, p)
 
     @property
     def no(self):
@@ -63,13 +44,3 @@ class Should(object):
         origin = self.__class__
         self.__class__ = type('shouldobj', (cls, origin), {})
         return self
-
-    def _assertions(self, assertion, exp):
-        res = _assertions[assertion](exp, self._val)
-        msg_format = '{0} should {1}{2} {3}'.format
-        if self._not:
-            res = not res
-        msg = msg_format(self._val, self._flag, assertion, exp)
-        self._assert(res, msg)
-        return self
-

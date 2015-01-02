@@ -23,7 +23,8 @@ def it(obj):
         .use(PropertyAssertions)\
         .use(ContainerAssertions)\
         .use(TypeAssertions)\
-        .use(NumberAssertions)
+        .use(NumberAssertions)\
+        .use(StringAssertions)
     return ret
 
 should = it
