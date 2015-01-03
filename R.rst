@@ -31,10 +31,6 @@ Bugs: https://github.com/Ralph-Wang/should/issues
     it(10).should.be.no.equal(8)
     it([1,2,3]).should.contain(3)
 
-    # with 版异常断言, 不支持 no, 在 0.5 版本会被删除
-    with should.raises(ValueError):
-        int('abc')
-
     # lambda 版异常断言
     it(lambda: int('abc')).should.throw(ValueError)
     it(lambda: int('123')).should.no.throw(ValueError)
