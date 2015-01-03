@@ -20,7 +20,7 @@ Bugs: https://github.com/Ralph-Wang/should/issues
 ----------------
 
 
-::
+.. code-block:: python
 
     from should import it
 
