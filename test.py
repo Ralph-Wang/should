@@ -168,6 +168,16 @@ class Test_it(object):
         it('aaa').should.no.match(r'bbb')
         it('abc\ndef').should.match(r'def')
 
+    def test_match_list(self):
+        case = ['ww@ww.com', 'test@test.cn', 'cc@bb.net']
+        it(case).should.match(r'(\w|_)+@(\w|_)+?\.(\w|_)+')
+        it(case).should.no.match(r'\d')
+
+    def test_match_dict(self):
+        case = {'u1': 'www', 'u2': 'bbc'}
+        it(case).should.match(r'^\w+')
+        it(case).should.no.match(r'\d')
+
     def test_empty(self):
         it('').should.be.empty
         it([]).should.be.empty

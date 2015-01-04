@@ -32,13 +32,19 @@ class Should(object):
         self._not = True
         return self
 
-    def _assert(self, res, msg):
+    def _reset(self):
+        self._not = False
+        return self
+
+    def _assert(self, res, msg, reset=True):
         ''' 统一的 assert 方法, 每次断言之后取消取否 '''
         if self._not:
             res = not res
             msg = msg.replace('should', 'should not')
         assert res, msg
-        self._not = False
+        if reset:
+            self._reset()
+        return self
 
     def use(self, cls):
         origin = self.__class__

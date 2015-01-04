@@ -235,6 +235,12 @@ it({'a': 1}).should.have.key('a').which.should.be.equal(1)
 
 ```
 it('abc').should.match(r'.c')
+
+lst = ['ww@ww.com', 'test@test.cn', 'cc@bb.net']
+it(lst).should.match(r'(\w|_)+@(\w|_)+?\.(\w|_)+')
+
+dct = {'u1': 'www', 'u2': 'bbc'}
+it(dct).should.match(r'^\w+')
 ```
 
 ### .throw(Error/msg) ###
