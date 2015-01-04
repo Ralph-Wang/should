@@ -9,8 +9,8 @@ class InstanceAssertions(object):
 
     def instanceof(self, exp):
         res = isinstance(self._val, exp)
-        msg = '{0} should {1}be instance of {2}'.format
-        self._assert(res, msg(self._val, self._flag, exp))
+        msg = '{0} should be instance of {1}'.format
+        self._assert(res, msg(self._val, exp))
         return self
 
 
@@ -20,8 +20,8 @@ def type_assert(exp, self):
     '''
     actual = type(self._val)
     res = actual is exp
-    msg_format = '{0} should be {1}{2}'.format
-    self._assert(res, msg_format(actual, self._flag, exp))
+    msg_format = '{0} should be {1}'.format
+    self._assert(res, msg_format(actual, exp))
     return self
 
 

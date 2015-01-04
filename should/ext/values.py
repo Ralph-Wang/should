@@ -5,8 +5,8 @@ class ValueAssertions(object):
 
     def equal(self, exp):
         res = self._val == exp
-        msg = '{0} should {1}be equal to {2}'.format
-        self._assert(res, msg(self._val, self._flag, exp))
+        msg = '{0} should be equal to {1}'.format
+        self._assert(res, msg(self._val, exp))
         return self
 
     @property
@@ -28,8 +28,8 @@ class ValueAssertions(object):
 
     def __values(self, exp, actual):
         res = actual is exp
-        msg_format = '{0} should be {1}{2}'.format
-        return res, msg_format(actual, self._flag, exp)
+        msg_format = '{0} should be {1}'.format
+        return res, msg_format(actual, exp)
 
     @property
     def ok(self):
@@ -45,5 +45,5 @@ class ValueAssertions(object):
 
     def _ok(self, actual):
         res = bool(actual)
-        msg_format = '{0}\'s bool value is {1}True'.format
-        return res, msg_format(actual, self._flag)
+        msg_format = '{0}\'s bool value should be True'.format
+        return res, msg_format(actual)

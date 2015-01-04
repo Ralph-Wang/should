@@ -13,10 +13,10 @@ class ErrorAssertions(object):
         if str(exception) == exception:
             exe_msg = exception
             exception = Exception
-            msg = ('should {0}raise msg:' + exe_msg).format
+            msg = 'should raise msg:' + exe_msg
         else:
             exe_msg = None
-            msg = ('should {0}raise ' + exception.__name__).format
+            msg = 'should raise ' + exception.__name__
 
         try:
             self._val()
@@ -26,7 +26,7 @@ class ErrorAssertions(object):
                 res = exe_msg in str(e)
         else:
             res = False
-        self._assert(res, msg(self._flag))
+        self._assert(res, msg)
         return self
 
     raises = throw

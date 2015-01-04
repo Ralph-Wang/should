@@ -15,14 +15,14 @@ class CommonAssertions(object):
 
     def length(self, exp):
         res = len(self._val) == exp
-        msg = '{0} should {1}have length {2}'.format
-        self._assert(res, msg(self._val, self._flag, exp))
+        msg = '{0} should have length {1}'.format
+        self._assert(res, msg(self._val, exp))
         return self
 
     def contain(self, exp):
         res = exp in self._val
-        msg = '{0} should {1}contain {2}'.format
-        self._assert(res, msg(self._val, self._flag, exp))
+        msg = '{0} should contain {1}'.format
+        self._assert(res, msg(self._val, exp))
         return self
 
 
@@ -54,8 +54,8 @@ class DictAssertions(object):
 
     def __key(self, name):
         res = name in self._val
-        msg_format = '{0} should{1} have key {2}'.format
-        msg = msg_format(self._val, self._flag, name)
+        msg_format = '{0} should have key {1}'.format
+        msg = msg_format(self._val, name)
         self._assert(res, msg)
         return self
 
