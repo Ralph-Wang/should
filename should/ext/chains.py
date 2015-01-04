@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+__all__ = ['Chain']
+
 
 def chain_meta(name, bases, attrs):
     chain = property(lambda self: self)

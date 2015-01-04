@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+__all__ = ['PropertyAssertions']
+
 
 class PropertyAssertions(object):
 

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+__all__ = ['ValueAssertions']
+
 
 class ValueAssertions(object):
 
