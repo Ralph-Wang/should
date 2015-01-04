@@ -26,8 +26,6 @@ class PropertyAssertions(object):
             pps = dir(self._val)
         res = name in pps
         msg_format = '{0} should{1} have {2}property {3}'.format
-        if self._not:
-            res = not res
         msg = msg_format(self._val, self._flag, 'own ' if own else '', name)
         self._assert(res, msg)
         return self

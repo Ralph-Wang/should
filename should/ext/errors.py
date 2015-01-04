@@ -26,8 +26,6 @@ class ErrorAssertions(object):
                 res = exe_msg in str(e)
         else:
             res = False
-        if self._not:
-            res = not res
         self._assert(res, msg(self._flag))
         return self
 

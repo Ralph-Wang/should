@@ -34,6 +34,8 @@ class Should(object):
 
     def _assert(self, res, msg):
         ''' 统一的 assert 方法, 每次断言之后取消取否 '''
+        if self._not:
+            res = not res
         assert res, msg
         self._not = False
 

@@ -9,8 +9,6 @@ class InstanceAssertions(object):
 
     def instanceof(self, exp):
         res = isinstance(self._val, exp)
-        if self._not:
-            res = not res
         msg = '{0} should {1}be instance of {2}'.format
         self._assert(res, msg(self._val, self._flag, exp))
         return self
@@ -21,7 +19,7 @@ def type_assert(exp, self):
     exp 会做偏函数, 所以对象会被绑定在第二个参数上
     '''
     actual = type(self._val)
-    res = (actual is not exp) if self._not else (actual is exp)
+    res = actual is exp
     msg_format = '{0} should be {1}{2}'.format
     self._assert(res, msg_format(actual, self._flag, exp))
     return self
