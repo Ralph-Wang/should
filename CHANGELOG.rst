@@ -6,6 +6,7 @@ v0.5.1
 
 * 小重构, 删除 _flag 属性
 * match/search 支持 list 和 dict. dict 只验证值
+* .contain 支持 contain(v1, v2, v3)
 
 v0.5.1
 ~~~~~~~~~~~~~~~~

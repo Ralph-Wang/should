@@ -151,6 +151,16 @@ it(A(1)).should.be.no.int
 it(A(1)).should.be.instanceof(int)
 ```
 
+### .contain(item1, item2...)
+
+断言对象包含所有元素
+
+```
+it([1, 2, 3]).should.contain(1)
+it(set([1, 2, 3])).should.contain(2, 3)
+it({'a': 1, 'b': 2}).should.contain('a')
+```
+
 ### .property(name) ###
 
 断言对象有属性 `name`. (dir(obj) 中存在).
@@ -252,6 +262,8 @@ def foo():
     raise ValueError('some msg')
 it(lambda: foo()).should.throw(ValueError)
 it(lambda: foo()).should.throw('some msg')
+it(lambda: foo()).should.raises(ValueError)
+it(lambda: foo()).should.raises('some msg')
 ```
 
 

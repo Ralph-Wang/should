@@ -19,10 +19,12 @@ class CommonAssertions(object):
         self._assert(res, msg(self._val, exp))
         return self
 
-    def contain(self, exp):
-        res = exp in self._val
-        msg = '{0} should contain {1}'.format
-        self._assert(res, msg(self._val, exp))
+    def contain(self, *args):
+        for exp in args:
+            res = exp in self._val
+            msg = '{0} should contain {1}'.format
+            self._assert(res, msg(self._val, exp), reset=False)
+        self._reset()
         return self
 
 

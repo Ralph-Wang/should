@@ -91,8 +91,13 @@ class Test_it(object):
         it(20).should.be.no.within(8, 10)
 
     def test_contain(self):
-        it([1,2,3]).contain(1)
-        it(set([1,2,3])).contain(3)
+        it([1,2,3]).should.contain(1)
+        it(set([1,2,3])).should.contain(3)
+        it({'a': 1, 'b': 2}).should.contain('a')
+
+        it([1,2,3]).contain(1, 2)
+        it(set([1,2,3])).contain(2, 3)
+        it({'a': 1, 'b': 2}).should.contain('a', 'b')
 
     def test_proper(self):
         class A:
