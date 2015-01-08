@@ -76,7 +76,7 @@ Python 中, `not` 是保留字, 不能使用. 所以选择 `.no`
 
 断言对象的布尔值为真
 
-```
+```python
 it(1).should.be.ok
 it(True).should.be.ok
 it([]).should.be.no.ok
@@ -88,7 +88,7 @@ it([]).should.be.no.ok
 
 因为大写开头的 True/False/None 在 3.\* 中变成保留字, 所以这里改用小写
 
-```
+```python
 it(True).should.be.true
 it(False).should.be.false
 it(None).should.be.none
@@ -98,7 +98,7 @@ it(None).should.be.none
 
 断言对象是否与 *value* 相等
 
-```
+```python
 it(1).should.be.equal(1)
 it([]).should.be.equal([])
 it(list(range(1,4))).should.be.equal([1,2,3])
@@ -109,7 +109,7 @@ it(list(range(1,4))).should.be.equal([1,2,3])
 
 断言字符串是否以 *substr* 开头/结尾
 
-```
+```python
 it('Hello World!').should.startswith('He')
 it('WTF GFW').should.endswith('GFW')
 ```
@@ -118,7 +118,7 @@ it('WTF GFW').should.endswith('GFW')
 
 断言对象值在 *from* 和 *to* 之间 (from <= val <= to)
 
-```
+```python
 it(1).should.be.within(0, 5)
 ```
 
@@ -126,7 +126,7 @@ it(1).should.be.within(0, 5)
 
 断言对象值小于(<)或大于(>) *value*
 
-```
+```python
 it(9).should.be.less(11)
 it(25).should.be.greater(22)
 ```
@@ -135,7 +135,7 @@ it(25).should.be.greater(22)
 
 除 `<type 'property'>` 以外的内建类型断言 (is)
 
-```
+```python
 it(1).should.be.int
 it([]).should.be.list
 ```
@@ -144,7 +144,7 @@ it([]).should.be.list
 
 断言对象是 `type` 的实例 (isinstance)
 
-```
+```python
 class A(int):
     pass
 it(A(1)).should.be.no.int
@@ -155,7 +155,7 @@ it(A(1)).should.be.instanceof(int)
 
 断言对象包含所有元素
 
-```
+```python
 it([1, 2, 3]).should.contain(1)
 it(set([1, 2, 3])).should.contain(2, 3)
 it({'a': 1, 'b': 2}).should.contain('a')
@@ -166,7 +166,7 @@ it({'a': 1, 'b': 2}).should.contain('a')
 断言对象有属性 `name`. (dir(obj) 中存在).
 `.property` 接口后调用链中对断言对象变更为对应属性的值
 
-```
+```python
 class A:
     a = 1
 it(A()).should.have.property('a').which.should.be.equal(1)
@@ -177,7 +177,7 @@ it(A()).should.have.property('a').which.should.be.equal(1)
 断言对象自己有属性 `name`. (obj.\_\_dict\_\_ 中存在)
 `.own_property` 接口后调用链中对断言对象变更为对应属性的值
 
-```
+```python
 class A:
     a = 1
     def __init__(self):
@@ -192,7 +192,7 @@ it(A()).should.have.no.own_property('b').which.should.be.equal(1)
 
 这两个接口不会改变调用链
 
-```
+```python
 class A:
     a = b = c = 1
     def __init__(self):
@@ -205,7 +205,7 @@ it(A()).should.have.own_properties('d', 'e')
 
 断言一个 sequence 长度为 `value`
 
-```
+```python
 it([]).should.have.length(0)
 it([1,2,3]).should.have.length(3)
 ```
@@ -214,7 +214,7 @@ it([1,2,3]).should.have.length(3)
 
 断言一个 sequence 是否为空
 
-```
+```python
 it([]).should.be.empty
 it([1,2,3]).should.be.no.empty
 ```
@@ -225,7 +225,7 @@ it([1,2,3]).should.be.no.empty
 
 `.key` 会改变调用链为该键对应的值
 
-```
+```python
 it({'a': 1}).should.have.key('a').which.should.be.equal(1)
 ```
 
@@ -235,7 +235,7 @@ it({'a': 1}).should.have.key('a').which.should.be.equal(1)
 
 这两个接口不会改变调用链
 
-```
+```python
 it({'a': 1}).should.have.key('a').which.should.be.equal(1)
 ```
 
@@ -243,7 +243,7 @@ it({'a': 1}).should.have.key('a').which.should.be.equal(1)
 
 断言字符串匹配正则 `re_string` (re.search(re_string, **))
 
-```
+```python
 it('abc').should.match(r'.c')
 
 lst = ['ww@ww.com', 'test@test.cn', 'cc@bb.net']
@@ -257,7 +257,7 @@ it(dct).should.match(r'^\w+')
 
 断言函数是否抛出异常 `Error` 或 异常信息 `msg`
 
-```
+```python
 def foo():
     raise ValueError('some msg')
 it(lambda: foo()).should.throw(ValueError)
