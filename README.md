@@ -64,7 +64,7 @@ it(lambda: int('123')).should.no.throw(ValueError)
 ### 调用链
 
 下面这些属性对断言没有任何影响, 只作为链式调用的中间属性
-`should`, `have`, `an`, `of`, `a`, `be`: `be`, `also, `which`
+`should`, `have`, `an`, `of`, `a`, `be`: `be`, `also`, `which`
 
 ### .no
 
@@ -74,7 +74,7 @@ Python 中, `not` 是保留字, 不能使用. 所以选择 `.no`
 
 ### .ok
 
-断言对象的布尔值为真
+断言对象的布尔值为真 (`bool(obj)`)
 
 ```python
 it(1).should.be.ok
@@ -84,7 +84,7 @@ it([]).should.be.no.ok
 
 ### .true / .false / .none
 
-断言对象就是 True, False, None
+断言对象就是 True, False, None (`is`)
 
 因为大写开头的 True/False/None 在 3.\* 中变成保留字, 所以这里改用小写
 
@@ -96,7 +96,7 @@ it(None).should.be.none
 
 ### .equal(value) ###
 
-断言对象是否与 *value* 相等
+断言对象是否与 *value* 相等 (`==`)
 
 ```python
 it(1).should.be.equal(1)
@@ -107,7 +107,7 @@ it(list(range(1,4))).should.be.equal([1,2,3])
 
 ### .startswith(substr) / .endswith(substr) ###
 
-断言字符串是否以 *substr* 开头/结尾
+断言字符串是否以 *substr* 开头/结尾 (`str.startswitdh`/`endswith`)
 
 ```python
 it('Hello World!').should.startswith('He')
@@ -133,7 +133,7 @@ it(25).should.be.greater(22)
 
 ### 类型断言 ###
 
-除 `<type 'property'>` 以外的内建类型断言 (is)
+除 `<type 'property'>` 以外的内建类型断言 (`is`)
 
 ```python
 it(1).should.be.int
@@ -142,7 +142,7 @@ it([]).should.be.list
 
 ### .isinstanceof(type) ###
 
-断言对象是 `type` 的实例 (isinstance)
+断言对象是 `type` 的实例 (`isinstance`)
 
 ```python
 class A(int):
@@ -153,7 +153,7 @@ it(A(1)).should.be.instanceof(int)
 
 ### .contain(item1, item2...)
 
-断言对象包含所有元素
+断言对象包含所有元素 (`itemN in val`)
 
 ```python
 it([1, 2, 3]).should.contain(1)
@@ -163,7 +163,7 @@ it({'a': 1, 'b': 2}).should.contain('a')
 
 ### .property(name) ###
 
-断言对象有属性 `name`. (dir(obj) 中存在).
+断言对象有属性 `name`. (in dir(obj)).
 `.property` 接口后调用链中对断言对象变更为对应属性的值
 
 ```python
@@ -174,7 +174,7 @@ it(A()).should.have.property('a').which.should.be.equal(1)
 
 ### .own_property ###
 
-断言对象自己有属性 `name`. (obj.\_\_dict\_\_ 中存在)
+断言对象自己有属性 `name`. (in obj.\_\_dict\_\_)
 `.own_property` 接口后调用链中对断言对象变更为对应属性的值
 
 ```python
@@ -203,7 +203,7 @@ it(A()).should.have.own_properties('d', 'e')
 
 ### .length(value) ###
 
-断言一个 sequence 长度为 `value`
+断言一个 sequence 长度为 `value` (`len`)
 
 ```python
 it([]).should.have.length(0)
@@ -212,7 +212,7 @@ it([1,2,3]).should.have.length(3)
 
 ### .empty ###
 
-断言一个 sequence 是否为空
+断言一个 sequence 是否为空 (`len(val) == 0`)
 
 ```python
 it([]).should.be.empty
