@@ -2,9 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from should import it
-import sys
-
-py3 = sys.version_info[0] == 3
 
 
 class Test_Number(object):
@@ -30,6 +27,6 @@ class Test_Number(object):
         it(0).be.no.above(5)
 
     def test_within(self):
-        it(0).should.be.within(-1,1)
+        it(0).should.be.within(-1, 1)
         it(10).should.be.within(8, 10)
         it(20).should.be.no.within(8, 10)

@@ -5,6 +5,12 @@ __all__ = ['ValueAssertions']
 
 class ValueAssertions(object):
 
+    def same(self, exp):
+        res = self._val is exp
+        msg ='{0} should be same object as {1}'.format
+        self._assert(res, msg(self._val, exp))
+        return self
+
     def equal(self, exp):
         res = self._val == exp
         msg = '{0} should be equal to {1}'.format

@@ -2,12 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from should import it
-import sys
-
-py3 = sys.version_info[0] == 3
 
 
-class Test_it(object):
+class Test_Properties(object):
 
     def test_proper(self):
         class A:
@@ -20,6 +17,7 @@ class Test_it(object):
     def test_own_proper(self):
         class A:
             a = 1
+
             def __init__(self):
                 self.b = 1
         a = A()
@@ -39,6 +37,7 @@ class Test_it(object):
 
     def test_own_properties(self):
         class A:
+
             def __init__(self):
                 self.a = 1
                 self.b = 2
@@ -46,4 +45,3 @@ class Test_it(object):
         a = A()
         it(a).should.have.own_properties('a', 'b', 'c')
         it(a).should.have.own_properties(['a', 'b', 'c'])
-

@@ -7,14 +7,15 @@ import sys
 py3 = sys.version_info[0] == 3
 
 
-class Test_it(object):
-    def test_type(self):
-        it(0).be.int
-        it(True).be.bool
-        it('string').be.str
-        it([]).be.list
-        it(()).be.tuple
-        it({}).be.dict
+class Test_Values(object):
+
+    def test_same(self):
+        class A(object):
+            pass
+        a = A()
+        b = A()
+        it(a).should.be.same(a)
+        it(a).should.be.no.same(b)
 
     def test_uniq_values(self):
         it(None).be.none
@@ -30,6 +31,7 @@ class Test_it(object):
         it((1,)).be.ok
         it({'key': 'value'}).be.ok
         # 没有 __nozero__(2.*) or __bool__(3.*)
+
         class A:
             pass
         it(A()).be.ok
@@ -46,8 +48,10 @@ class Test_it(object):
 
         # 自定义的等于
         class A(object):
+
             def __init__(self, val):
                 self.val = val
+
             def __eq__(self, other):
                 return self.val != other.val
         it(A(1)).be.equal(A(3))
