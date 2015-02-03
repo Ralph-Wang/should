@@ -131,6 +131,18 @@ it(9).should.be.less(11)
 it(25).should.be.greater(22)
 ```
 
+### .same(obj) ###
+
+与 obj 是同一个对象 (`is`)
+
+```
+class A():
+   pass
+
+a = b = A()
+it(a).should.be.same(b)
+```
+
 ### 类型断言 ###
 
 除 `<type 'property'>` 以外的内建类型断言 (`is`)
@@ -153,8 +165,8 @@ it(A(1)).should.be.instanceof(int)
 
 ### .count(value, num)
 
-断言容器中包含 num 个 value 值 ([].count(value) == num)
-支持字典 ({}.values().count(value) == num)
+断言容器中包含 num 个 value 值 (`[].count(value) == num`)
+支持字典 (`{}.values().count(value) == num`)
 
 ```python
 it([1,2,3]).should.count(3, 1)
