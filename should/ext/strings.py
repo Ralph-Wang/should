@@ -26,10 +26,9 @@ class StringAssertions(object):
                 str: self.match_string
                 }
         t = type(self._val)
-        if t not in matrix:  # in case of unicode
-            self.match_string(exp)
-        else:
-            matrix[t](exp)
+        # in case of unicode, set default
+        matrix.get(t, self.match_string)(exp)
+        return self
 
     def basic_match(self, reg, origin):
         return re.search(reg, origin) is not None
@@ -47,6 +46,7 @@ class StringAssertions(object):
             res = self.basic_match(exp, item)
             self._assert(res, msg(item, self._val, exp), reset=False)
         self._reset()
+        return self
 
     def match_dict(self, exp):
         msg = '({0},{1}) in {2} should match {3}'.format
@@ -55,6 +55,7 @@ class StringAssertions(object):
             res = self.basic_match(exp, value)
             self._assert(res, msg(key, value, self._val, exp), reset=False)
         self._reset()
+        return self
 
 
     search = match

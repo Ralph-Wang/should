@@ -1,9 +1,10 @@
+TESTS=`find tests -name test_*.py`
 
 test:
-	@nosetests test.py
+	@nosetests $(TESTS)
 
 cov:
-	@nosetests --with-coverage --cover-package=should test.py
+	@nosetests --with-coverage --cover-package=should $(TESTS)
 	@coverage html
 
 .PHONY: test cov
