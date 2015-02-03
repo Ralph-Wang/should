@@ -151,6 +151,17 @@ it(A(1)).should.be.no.int
 it(A(1)).should.be.instanceof(int)
 ```
 
+### .count(value, num)
+
+断言容器中包含 num 个 value 值 ([].count(value) == num)
+支持字典 ({}.values().count(value) == num)
+
+```python
+it([1,2,3]).should.count(3, 1)
+it((1,2,2)).should.count(2, 2)
+it({'k1': 1, 'k2': 1}).should.count(1, 2)
+```
+
 ### .contain(item1, item2...)
 
 断言对象包含所有元素 (`itemN in val`)

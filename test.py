@@ -90,6 +90,13 @@ class Test_it(object):
         it(10).should.be.within(8, 10)
         it(20).should.be.no.within(8, 10)
 
+    def test_count(self):
+        it([1,2,3]).should.count(3, 1)
+        it([1,2,2]).should.count(2, 2)
+        it((1,2)).should.count(2, 1)
+        it((1,2)).should.no.count(3, 1)
+        it({'k1': 1, 'k2': 1}).should.count(1, 2)
+
     def test_contain(self):
         it([1,2,3]).should.contain(1)
         it(set([1,2,3])).should.contain(3)

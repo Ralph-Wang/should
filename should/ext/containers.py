@@ -27,6 +27,14 @@ class CommonAssertions(object):
         self._reset()
         return self
 
+    def count(self, value, num):
+        if isinstance(self._val, dict):
+            res = (self._val.values().count(value) == num)
+        else:
+            res = (self._val.count(value) == num)
+        msg = '{0} should contain {1} of {2}'.format
+        self._assert(res, msg(self._val, num, value))
+        return self
 
 class DictAssertions(object):
 
