@@ -7,6 +7,7 @@ should
     :target: https://coveralls.io/r/Ralph-Wang/should
 
 Bugs: https://github.com/Ralph-Wang/should/issues
+More Details: https://github.com/Ralph-Wang/should/blob/master/README.md
 
 安装:
 ----------------

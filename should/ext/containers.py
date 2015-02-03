@@ -29,7 +29,7 @@ class CommonAssertions(object):
 
     def count(self, value, num):
         if isinstance(self._val, dict):
-            res = (self._val.values().count(value) == num)
+            res = (list(self._val.values()).count(value) == num)
         else:
             res = (self._val.count(value) == num)
         msg = '{0} should contain {1} of {2}'.format
