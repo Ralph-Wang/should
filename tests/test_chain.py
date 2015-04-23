@@ -11,6 +11,10 @@ class Test_Chain(object):
         it(0).be.no.dict
         it(0).be.no.ok
 
+        it(0).shouldnt.be.equal(5)
+        it(0).shouldnt.be.dict
+        it(0).shouldnt.be.ok
+
     def test_chain(self):
         v = it(0)
         it(v).should.be.same(v.should)

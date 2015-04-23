@@ -32,6 +32,8 @@ class Should(object):
         self._not = True
         return self
 
+    shouldnt = no
+
     def _reset(self):
         self._not = False
         return self
