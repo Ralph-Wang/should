@@ -37,9 +37,9 @@ More Details: https://github.com/Ralph-Wang/should/blob/master/README.md
     it(lambda: int('123')).should.no.throw(ValueError)
 
 
-- 更多例子请参考 test.py_
+- 更多例子请参考 tests_
 
-.. _test.py: https://github.com/Ralph-Wang/should/blob/master/test.py
+.. _tests: https://github.com/Ralph-Wang/should/blob/master/tests
 
 
 License

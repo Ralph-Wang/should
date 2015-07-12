@@ -290,7 +290,7 @@ it(lambda: foo()).should.raises('some msg')
 ```
 
 
-* 更多例子请参考 [test.py](https://github.com/Ralph-Wang/should/blob/master/test.py)
+* 更多例子请参考 [test.py](https://github.com/Ralph-Wang/should/blob/master/tests)
 
 ## 不足:
 
