@@ -66,9 +66,9 @@ it(lambda: int('123')).should.no.throw(ValueError)
 下面这些属性对断言没有任何影响, 只作为链式调用的中间属性
 `should`, `have`, `an`, `of`, `a`, `be`: `be`, `also`, `which`
 
-### .no
+### .no/.shouldnt
 
-`.no` 对当前断言取反.
+`.no/.shouldnt` 对当前断言取反.
 Python 中, `not` 是保留字, 不能使用. 所以选择 `.no`
 
 
