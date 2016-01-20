@@ -14,6 +14,19 @@ class Test_Types(object):
         it(()).be.tuple
         it({}).be.dict
 
+    def test_subclassof(self):
+        class A(object):
+            pass
+        class B(A):
+            pass
+        class C(B):
+            pass
+
+        it(B).should.be.subclassof(A)
+        it(C).should.be.subclassof(A)
+        it(C).should.be.subclassof(B)
+        it(A).shouldnt.be.subclassof(C)
+
     def test_instanceof(self):
         class A(object):
             pass

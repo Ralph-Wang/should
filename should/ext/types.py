@@ -5,7 +5,13 @@ from functools import partial
 __all__ = ['TypeAssertions']
 
 
-class InstanceAssertions(object):
+class IsAAssertions(object):
+
+    def subclassof(self, exp):
+        res = issubclass(self._val, exp)
+        msg = "{0} should be subclass of {1}".format
+        self._assert(res, msg(self._val, exp))
+        return self
 
     def instanceof(self, exp):
         res = isinstance(self._val, exp)
@@ -35,5 +41,5 @@ def type_meta(name, bases, attrs):
 _TypeAssertions = type_meta('_TypeAssertions', (object,), {})
 
 
-class TypeAssertions(_TypeAssertions, InstanceAssertions):
+class TypeAssertions(_TypeAssertions, IsAAssertions):
     pass

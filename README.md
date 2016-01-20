@@ -152,7 +152,7 @@ it(1).should.be.int
 it([]).should.be.list
 ```
 
-### .isinstanceof(type) ###
+### .instanceof(type) ###
 
 断言对象是 `type` 的实例 (`isinstance`)
 
@@ -161,6 +161,16 @@ class A(int):
     pass
 it(A(1)).should.be.no.int
 it(A(1)).should.be.instanceof(int)
+```
+
+### .subclassof(type) ###
+
+断言对象是 `type` 的子类 (`issubclass`)
+
+```python
+class A(int):
+    pass
+it(A).should.be.subclassof(int)
 ```
 
 ### .count(value, num)
