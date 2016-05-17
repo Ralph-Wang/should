@@ -6,6 +6,16 @@ from should import it
 
 class Test_Containers(object):
 
+    def test_empty(self):
+        it([]).should.be.empty
+        it({}).should.be.empty
+        it(()).should.be.empty
+
+
+        it((1,2,3,)).shouldnt.be.empty
+        it([1,2,3,]).shouldnt.be.empty
+        it({1:2,3:4}).shouldnt.be.empty
+
     def test_count(self):
         it([1, 2, 3]).should.count(3, 1)
         it([1, 2, 2]).should.count(2, 2)
