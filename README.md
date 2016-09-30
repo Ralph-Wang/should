@@ -3,7 +3,6 @@
 [![travis](https://img.shields.io/travis/Ralph-Wang/should.svg?style=flat-square)](https://travis-ci.org/Ralph-Wang/should)
 [![Coverage Status](https://img.shields.io/coveralls/Ralph-Wang/should.svg?style=flat-square)](https://coveralls.io/r/Ralph-Wang/should)
 [![pypi-version](https://img.shields.io/pypi/v/should.svg?style=flat-square)](https://pypi.python.org/pypi/should)
-![pypi-downloads](https://img.shields.io/pypi/dm/should.svg?style=flat-square)
 
 
 ```
